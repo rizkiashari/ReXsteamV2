@@ -9,37 +9,37 @@
       <a href="/" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
         <img src="/logo.png" class="w-28"/>
       </a>
-      <a class="px-8 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:block hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-navbarText focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline" href="/login">Home</a>
+      <a class="px-8 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:block hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 focus:text-navbarText hover:text-[#e9e9e9] focus:bg-white focus:outline-none focus:shadow-outline" href="/login">Home</a>
       
     </div>
     <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
       <div class="pl-4 relative md:block hidden">
         <div class="flex">
-            <button class="absolute top-0 bottom-0 left-[2em]  justify-center border-0 rounded-l-md ">
-                <svg class="w-6 h-6 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+            <button class="absolute top-0 bottom-0 left-[1.8em] justify-center border-0 rounded-l-md ">
+                <svg class="w-5 h-5 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24">
                     <path
                         d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" fill="#f1f1f1">
                     </path>
                 </svg>
             </button>
-            <input type="text" class="pl-[3em] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
+            <input type="text" class="pl-[3em] text-[14px] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
         </div>
       </div>
       <a class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white block md:hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-navbarText focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline" href="/login">Home</a>     
       <a class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:mx-3 dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-navbarText focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline" href="/login">Login</a>
-      <a class="px-4 py-2 mt-2 text-sm border-0 md:w-[6em] w-20 bg-[#374151]  font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white ml-4 md:ml-0 dark-mode:focus:text-white dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-navbarText focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline" href="/register">Register</a>
+      <a class="px-3 py-2 mt-2 text-sm md:w-[6em] w-20 border-2 border-[#374151] font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white ml-4 md:ml-0 dark-mode:focus:text-white dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-navbarText focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline" href="/register">Register</a>
       <div class="pl-4 relative block md:hidden mt-2">
         <div class="flex">
-            <button class="absolute top-0 bottom-0 left-[2em]  justify-center border-0 rounded-l-md ">
-                <svg class="w-6 h-6 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+            <button class="absolute top-0 bottom-0 left-[1.8em]  justify-center border-0 rounded-l-md ">
+                <svg class="w-5 h-5 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24">
                     <path
                         d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" fill="#f1f1f1">
                     </path>
                 </svg>
             </button>
-            <input type="text" class="pl-[3em] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
+            <input type="text" class="text-[14px] pl-[3em] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
         </div>
       </div>
     </nav>

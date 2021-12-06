@@ -12,11 +12,11 @@
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   <title>Document</title>
 </head>
-<body class="min-h-[100vh] flex flex-col justify-between bg-[#D1D5DB]" >
+<body class="min-h-[100vh] font-OpenSans flex flex-col justify-between bg-[#D1D5DB]" >
   <div>
     @include('partials.navbar')
     
-    <div class="container mt-4">
+    <div class="">
       @yield('content')
     </div>
     
