@@ -31,13 +31,13 @@
           </div>
         </div>
       </div>
-      <label class="mt-2 flex items-center text-gray-500 font-bold my-4">
-        <input type="checkbox" class="mr-2 h-3 w-3"/> 
-          <span class="py-2 text-[12px] text-[#f1f1f1]">Remember Me</span>
+      <label class="mt-2 flex items-center my-4">
+        <input type="checkbox" class="mr-[5px] h-[12px] w-[12px]"/> 
+          <span class="py-2 text-[10px] text-[#f1f1f1]">Remember Me</span>
       </label>
       <button class="w-full bg-[#4F46E5] hover:bg-[#3e37c7] rounded py-2 text-[14px]">Login</button>
       <div class="flex mt-4 justify-end">
-        <a class="text-[#9590fd] text-[12px]">Don't have an account?</a> 
+        <a href="/register" class="text-[#9590fd] text-[12px]">Don't have an account?</a> 
       </div>
     </form>
   </div>
