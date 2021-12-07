@@ -10,13 +10,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <title>Document</title>
+  <title>ReXsteam | {{ $title }}</title>
 </head>
-<body class="min-h-[100vh] font-OpenSans flex flex-col justify-between bg-[#D1D5DB]" >
+<body class="font-OpenSans bg-[#D1D5DB]" >
   <div>
     @include('partials.navbar')
     
-    <div class="">
+    <div class="min-h-[90vh] ">
       @yield('content')
     </div>
     
