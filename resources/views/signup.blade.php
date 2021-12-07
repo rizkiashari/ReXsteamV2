@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="w-[100%] h-[100%] flex">
-  <div class="md:w-1/2 w-full h-full px-16 md:px-40 py-16 text-[#f1f1f1] bg-[#111827]">
+  <div class="md:w-1/2 w-full max-h-screen px-16 md:px-40 py-16 text-[#f1f1f1] bg-[#111827]">
     {{-- Error Message --}}
     @if ($errors->any())
       <div x-data="{ open: true }" :class="{'flex': open, 'hidden': !open}"  role="alert">

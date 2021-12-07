@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -38,7 +39,9 @@ class RegisterController extends Controller
 
         $validasiData['password'] = bcrypt($validasiData['password']);
 
-        User::create($validasiData);
+        $user = User::create($validasiData);
+
+        Auth::login($user);
 
         return redirect('/')->with('success', 'Successfully Registrasion Account.');
     }

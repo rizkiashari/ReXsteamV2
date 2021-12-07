@@ -16,7 +16,7 @@
   <div>
     @include('partials.navbar')
     
-    <div class="min-h-[90vh] ">
+    <div class="max-h-full">
       @yield('content')
     </div>
     
