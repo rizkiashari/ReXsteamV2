@@ -9,7 +9,12 @@
       <a href="/" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
         <img src="/logo.png" class="w-28"/>
       </a>
-      <a class="px-8 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:block hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 focus:text-navbarText hover:text-[#e9e9e9] focus:bg-white focus:outline-none focus:shadow-outline" href="/">Home</a>
+      <a class="pl-6 pr-4 py-2 mt-2 text-sm font-semibold hover:text-[#afafaf] text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:block hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 focus:text-navbarText focus:bg-white focus:outline-none focus:shadow-outline {{ $active == "home" ? 'text-[#f1444f]':"" }} " href="/">Home</a>
+      @auth   
+        @if (Auth::user()->role_id == 1)
+        <a class="px-1 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:block hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 focus:text-navbarText hover:text-[#afafaf] focus:bg-white focus:outline-none focus:shadow-outline" href="/manage-game">Manage Game</a>
+        @endif
+      @endauth
       
     </div>
     <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
@@ -26,23 +31,36 @@
             <input type="text" class="pl-[3em] text-[14px] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
         </div>
       </div>
-      <a class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white block md:hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-navbarText focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline" href="/">
+      <a class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white block md:hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-[#afafaf] focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline {{ $active == "home" ? 'text-[#f1444f]':"" }}" href="/">
         Home
       </a>
       @auth
-        <a href="/shopping-cart" class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:mx-3 dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-navbarText focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline">
+        @if (Auth::user()->role_id == 1)
+        <a class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white block md:hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-[#afafaf] focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline">Manage Game</a>
+        @endif
+        <a href="/shopping-cart" class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:mx-3 dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-[#afafaf]  focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
           </svg>
         </a>
+
         <div x-data="{ dropdown: false }">
           <button @click="dropdown = !dropdown">
-            <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+            <img class="inline-block h-10 w-10 md:ml-0 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
           </button>
+        
           <div x-show="dropdown" class="absolute z-[99] right-[10em] mt-2 py-2 w-56 bg-[#f1f1f1] rounded-md shadow-xl">
             <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
               Profile
             </a>
+            @if (Auth::user()->role_id == 2)
+            <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+              Friends
+            </a>
+            <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+              Transaction History
+            </a>
+            @endif
             <form method="POST" action="/logout">
               @csrf
               <button class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
@@ -52,10 +70,10 @@
           </div>
         </div>
           @else
-          <a class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:mx-3 dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-navbarText focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline" href="/login">
+          <a class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:mx-3 dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-[#afafaf]  focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline {{ $active == "login" ? 'text-[#f1444f]':"" }} " href="/login">
             Login
           </a>
-          <a class="px-3 py-2 mt-2 text-sm md:w-[6em] w-20 border-2 border-[#374151] font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white ml-4 md:ml-0 dark-mode:focus:text-white dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-navbarText focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline" href="/register">
+          <a class="px-3 py-2 mt-2 text-sm md:w-[6em] w-20 border-2 border-[#374151] font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white ml-4 md:ml-0 dark-mode:focus:text-white dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-[#afafaf]  focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline {{ $active == "register" ? 'text-[#f1444f]' : "" }}" href="/register">
             Register
           </a>
       @endauth  

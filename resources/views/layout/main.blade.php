@@ -12,11 +12,11 @@
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   <title>ReXsteam | {{ $title }}</title>
 </head>
-<body class="font-OpenSans bg-[#D1D5DB]" >
+<body class="font-OpenSans" >
   <div>
     @include('partials.navbar')
     
-    <div class="max-h-full">
+    <div class="max-h-full bg-[#D1D5DB]">
       @yield('content')
     </div>
     
