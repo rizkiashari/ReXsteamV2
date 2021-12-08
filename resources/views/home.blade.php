@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-<div class="container">
+<div class="container px-12">
     @if (session()->has('success'))
     <div x-data="{ open: true }" :class="{'flex': open, 'hidden': !open}"  role="alert">
         <div class="bg-[#d1e7dd] border-[2px] w:-[100px] sm:w-[350px] md:w-[600px] border-[#badbcc] text-[#0f5132] px-10 py-3 rounded absolute top-[7em] left-[50%] translate-x-[-50%]">

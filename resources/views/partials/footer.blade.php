@@ -1,4 +1,4 @@
-<footer class="bg-[#111827] px-10 py-4">
+<footer class="bg-[#111827] md:px-[11em] px-8 py-4">
   <div class="container flex justify-between items-center">
     <p class="text-[#BABABA] text-[10px] md:text-[12px]">&copy; 2021 ReXsteam. All rights reserved.</p>
     <div class="flex flex-row gap-4 justify-end items-end">

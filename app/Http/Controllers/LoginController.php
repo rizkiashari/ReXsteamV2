@@ -30,7 +30,7 @@ class LoginController extends Controller
 
             $user = User::where(["username" => $credentials['username']])->first();
             Auth::login($user, $remember_me);
-            return redirect()->intended('/');
+            return redirect('/')->with('success', 'You are now logged in');
         }
 
         return back()->withErrors([

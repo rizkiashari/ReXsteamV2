@@ -27,7 +27,7 @@
       @csrf
       <div class="mb-4">
         <label class="capitalize text-[14px]">username</label>
-        <input class="w-full h-full mt-1 text-[#111827] text-[12px] rounded pl-[12px] py-2" type="text" name="username" value="{{ old('username') }}">
+        <input class="w-full h-full mt-1 text-[#111827] text-[12px] rounded pl-[12px] py-2" type="text" name="username" autofocus value="{{ old('username') }}">
       </div>
       <div x-data="{ show: true }">
         <label class="capitalize text-[14px]">Password</label>
