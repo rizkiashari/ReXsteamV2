@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-<div class="w-[100%] h-[100%] flex">
+<div class="w-[100%] min-h-[90vh] flex">
   <div class="md:w-1/2 w-full max-h-screen px-16 md:px-40 py-16 text-[#f1f1f1] bg-[#111827]">
     {{-- Error Message --}}
     @if ($errors->any())

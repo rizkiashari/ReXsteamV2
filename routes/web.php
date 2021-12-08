@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -25,3 +26,6 @@ Route::get("/login", [LoginController::class, "index"])->middleware("guest");
 Route::post("/login", [LoginController::class, "authenticate"]);
 
 Route::post("/logout", [LoginController::class, "logout"]);
+
+Route::get('/add-game', [GameController::class, 'index']);
+Route::post('/add-game', [GameController::class, 'store']);

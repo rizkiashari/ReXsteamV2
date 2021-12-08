@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-<div class="container px-12">
+<div class="container min-h-[90vh] px-12 pb-20">
     @if (session()->has('success'))
     <div x-data="{ open: true }" :class="{'flex': open, 'hidden': !open}"  role="alert">
         <div class="bg-[#d1e7dd] border-[2px] w:-[100px] sm:w-[350px] md:w-[600px] border-[#badbcc] text-[#0f5132] px-10 py-3 rounded absolute top-[7em] left-[50%] translate-x-[-50%]">
@@ -12,6 +12,19 @@
         </div>
     </div>
     @endif
-    <p class="font-OpenSans">Home</p>
+    <p class="font-OpenSans uppercase py-6 text-[18px] md:text-[20px] font-bold">Top Games</p>
+    <div class="flex gap-5 py-5 md:flex-row md:justify-start justify-center flex-wrap">
+        @foreach ($games as $game)
+            <div class="relative md:w-[22%] w-[200px] h-1/3">
+                <div class="before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-[#ffffff69] before:rounded-[16px] ">
+                    <img class="rounded-[16px] w-full object-cover" src="{{ 'covers/'. $game->cover }}" />
+                    <div class="absolute bottom-5 left-3 px-3 rounded-[8px] md:max-w-xs py-2 bg-[#ffffff8e]">
+                        <h3 class="font-bold mb-1 capitalize text-[14px]">{{ $game->game_name }}</h3>
+                        <p class="font-normal capitalize text-[12px]">{{ $game->category->name }}</p>
+                    </div>
+                </div>
+            </div>  
+        @endforeach        
+    </div>
 </div>
 @endsection

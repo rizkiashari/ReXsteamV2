@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-<div class="w-[100%] h-[100%] flex">
+<div class="w-[100%] min-h-[90vh] flex">
   <div class="md:w-1/2 w-full max-h-screen px-16 md:px-40 py-20 text-[#f1f1f1] bg-[#111827]">
     {{-- Error Message --}}
     @if ($errors->any())
@@ -52,8 +52,8 @@
         </div>
       </div>
       <label class="mt-2 flex items-center my-4">
-        <input type="checkbox" class="mr-[5px] h-[12px] w-[12px]" name="remember_me" /> 
-          <span class="py-2 text-[10px] text-[#f1f1f1]">Remember Me</span>
+        <input type="checkbox" class="mr-[5px] h-[12px] w-[12px]" name="remember_me"> 
+        <span class="py-2 text-[10px] text-[#f1f1f1]">Remember Me</span>
       </label>
       <button class="w-full bg-[#4F46E5] hover:bg-[#3e37c7] rounded py-2 text-[14px]">Login</button>
       <div class="flex mt-4 justify-end">

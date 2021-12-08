@@ -1,5 +1,5 @@
-<footer class="bg-[#111827] md:px-[11em] px-8 py-4">
-  <div class="container flex justify-between items-center">
+<footer class="bg-[#111827] py-4 fixed w-full bottom-0">
+  <div class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
     <p class="text-[#BABABA] text-[10px] md:text-[12px]">&copy; 2021 ReXsteam. All rights reserved.</p>
     <div class="flex flex-row gap-4 justify-end items-end">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
