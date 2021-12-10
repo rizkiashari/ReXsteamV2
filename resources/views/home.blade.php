@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-<div class="container min-h-[90vh] px-12 pb-20">
+<div class="container mx-auto min-h-[90vh] px-4 sm:px-0 md:px-12 md:pb-20">
     @if (session()->has('success'))
     <div x-data="{ open: true }" :class="{'flex': open, 'hidden': !open}"  role="alert">
         <div class="bg-[#d1e7dd] border-[2px] w:-[100px] sm:w-[350px] md:w-[600px] border-[#badbcc] text-[#0f5132] px-10 py-3 rounded absolute top-[7em] left-[50%] translate-x-[-50%]">
@@ -14,7 +14,7 @@
     @endif
     @if (count($games) > 0)
         <p class="font-OpenSans uppercase py-6 text-[18px] md:text-[20px] font-bold">Top Games</p>
-        <div class="flex gap-5 py-5 md:flex-row md:justify-start justify-center flex-wrap">
+        <div class="flex gap-5 py-5 md:flex-row md:justify-start sm:justify-start justify-center flex-wrap">
             @foreach ($games as $game)
             <div class="relative md:w-[22%] w-[200px] h-1/3">
                 <a class="hover:backdrop-blur-0" href="/game/{{ $game->slug }}">

@@ -5,7 +5,9 @@
       <div class="bg-[#fff] rounded-[4px] w-full flex justify-between">
         @include('partials.sidenav')
         <div class="border-l-2 border-[#f3f3f3]"></div>
-        <p>Oke</p>
+        <div class="flex flex-1 px-5 py-4">
+          <p class="">{{ $user->username }} Profile</p>
+        </div>
       </div>
     </div>
 @endsection
