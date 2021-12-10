@@ -64,7 +64,7 @@
           </button>
         
           <div x-show="dropdown" class="absolute z-[99] right-[10em] mt-2 py-2 w-56 bg-[#f1f1f1] rounded-md shadow-xl">
-            <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+            <a href="/user/profile" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
               Profile
             </a>
             @if (Auth::user()->role_id == 2)
