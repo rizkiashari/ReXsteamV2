@@ -21,21 +21,36 @@
         </div>
       </div>
       @endif
-      <h3 class="font-semibold font-OpenSans mb-6 text-[16px] md:text-[24px]">Create Games</h3>
-      <form method="POST" action="/add-game" enctype="multipart/form-data">
+      <div class="flex gap-3 items-center mb-3">
+        <a href="/" class="flex flex-col items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#7c7b7caa" class="bi bi-house-door" viewBox="0 0 16 16">
+            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+          </svg>
+        </a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#7c7b7caa" class="mt-[2px] text-[#42423b]" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+        <p class="text-[12px] mt-[2px] text-[#7c7b7caa]">
+          {{ $game->category->name }}
+        </p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#7c7b7caa" class="mt-[2px] text-[#42423b]" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+        <p class="text-[12px] mt-[2px] text-[#7c7b7caa]">
+          {{ $game->game_name }}
+        </p>
+      </div>
+      <h3 class="font-semibold font-OpenSans mb-6 text-[16px] md:text-[24px]">Update Games</h3>
+      <form method="POST" action="/game/{{ $game->slug }}/update" enctype="multipart/form-data">
         @csrf
-        <div class="mb-4 text-[#111827]">
-          <label class="capitalize text-[14px]">Game name</label>
-          <input class="w-full h-full mt-1 text-[#111827] text-[12px] rounded pl-[12px] py-2" type="text" name="game_name" autofocus value="{{ old('game_name') }}">
-        </div>
         <div class="mb-4 flex flex-col text-[#111827]">
           <label class="capitalize text-[14px]">Game description</label>
-          <textarea name="description" class="w-full h-full mt-1 text-[#111827] text-[12px] rounded px-[16px] py-3" value="{{ old('description') }}"></textarea>
+          <textarea name="description" class="w-full h-full mt-1 text-[#111827] text-[12px] rounded px-[16px] py-3" value="{{ $game->description }}">{{ $game->description }}</textarea>
           <p class="text-[12px] text-[#919191] mt-[3px]">Write a single sentence about the game</p>
         </div>
         <div class="mb-4 text-[#111827]">
           <label class="capitalize text-[14px]">Game long description</label>
-          <textarea rows="10" class="w-full h-full mt-1 text-[#111827] text-[12px] rounded px-[16px] py-3" type="text" name="long_description"  value="{{ old('long_description') }}"></textarea>
+          <textarea rows="10" class="w-full h-full mt-1 text-[#111827] text-[12px] rounded px-[16px] py-3" type="text" name="long_description" value="{{ $game->long_description }}">{{  $game->long_description }}</textarea>
           <p class="text-[12px] mt-[3px] text-[#919191]">Write a few sentence about the game</p>
         </div>
       <div class="my-4">
@@ -43,7 +58,7 @@
         <div class="relative">
           <select name="category_id" class="capitalize appearance-none w-full text-[#111827] font-medium text-[12px] py-2 px-[12px] pr-8 rounded">
             @foreach ($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>          
+            <option value="{{ $category->id }}" {{ ($category->id == $game->category_id) ? 'selected' : ''}}>{{ $category->name }}</option>          
             @endforeach
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
@@ -52,20 +67,8 @@
         </div>
       </div>
       <div class="mb-4 text-[#111827]">
-        <label class="capitalize text-[14px]">Game developer</label>
-        <input class="w-full h-full mt-1 text-[#111827] text-[12px] rounded pl-[12px] py-2" type="text" name="developer" value="{{ old('developer') }}">
-      </div>
-      <div class="mb-4 text-[#111827]">
-        <label class="capitalize text-[14px]">Game Publisher</label>
-        <input class="w-full h-full mt-1 text-[#111827] text-[12px] rounded pl-[12px] py-2" type="text" name="publisher" value="{{ old('publisher') }}">
-      </div>
-      <div class="mb-4 text-[#111827]">
-        <label class="capitalize text-[14px]">Release Date</label>
-        <input class="w-full h-full mt-1 appearance-none text-[#111827] text-[12px] rounded pl-[12px] py-2" type="date" name="release_date" value="{{ old('release_date') }}">
-      </div>
-      <div class="mb-4 text-[#111827]">
         <label class="capitalize text-[14px]">Game price</label>
-        <input class="w-full h-full mt-1 text-[#111827] text-[12px] rounded pl-[12px] py-2" type="number" name="price" value="{{ old('price') }}">
+        <input class="w-full h-full mt-1 text-[#111827] text-[12px] rounded pl-[12px] py-2" type="number" name="price" value="{{ $game->price }}">
       </div>
       <div class="mb-4 text-[#111827]">
         <label class="capitalize text-[14px]">Game Cover</label>
@@ -80,7 +83,6 @@
           <template x-if="imageUrl">
             <img :src="imageUrl" alt="icon cover" class="object-cover w-auto h-40" />
           </template>
-          
           <input type="file" accept="image/jpg" @change="fileChosen" name="cover" class="hidden" />
         </label>
       </div>
@@ -98,19 +100,14 @@
             {{-- video src --}}
             <video  class="object-cover w-auto h-40" >
               <source :src="videoUrl">
-              </video>
-              
+              </video>  
             </template>
             <input type="file" accept="video/webm" @change="fileChosen" id="trailer" name="trailer" class="hidden" />
           </label>
         </div>
-        <label class="mt-2 mb-4 flex items-center my-4">
-          <input type="checkbox" name="is_adult" class="mr-2" value="1" {{ old('is_adult') ? 'checked' : '' }}>
-          <span class="py-2 text-[12px] font-bold text-[#111827]">Only for adult?</span>
-        </label>
-        <div class="border-b-2 my-3 border-[#ffff]"></div>
+        <div class="border-b-2 my-5 border-[#ffff]"></div>
         <div class="flex justify-end mt-2 gap-3 items-center">
-          <a href="/" class="text-[12px] md:text-[14px] px-4 py-2 rounded-md bg-[#fff]">Cancel</a>
+          <a href="/manage-game" class="text-[12px] md:text-[14px] px-4 py-2 rounded-md bg-[#fff]">Cancel</a>
           <button class="text-[12px] md:text-[14px] px-6 py-2 rounded-md bg-[#4B5563] text-[#fff]">Save</button>
         </div>
       </form>

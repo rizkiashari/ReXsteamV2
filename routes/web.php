@@ -3,6 +3,7 @@
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ManageGameController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,10 @@ Route::post("/logout", [LoginController::class, "logout"]);
 
 Route::get('/add-game', [GameController::class, 'index']);
 Route::post('/add-game', [GameController::class, 'store']);
+
+
+Route::get('/manage-game', [ManageGameController::class, 'index']);
+Route::delete('/game/{game:slug}/delete', [ManageGameController::class, 'destroy']);
+
+Route::get('/game/{game:slug}/update', [ManageGameController::class, 'edit']);
+Route::post('/game/{game:slug}/update', [ManageGameController::class, 'update']);

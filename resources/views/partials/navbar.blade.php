@@ -12,7 +12,7 @@
       <a class="pl-6 pr-4 py-2 mt-2 text-sm font-semibold hover:text-[#afafaf] text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:block hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 focus:text-navbarText focus:bg-white focus:outline-none focus:shadow-outline {{ $active == "home" ? 'text-[#c44d3e]':"" }} " href="/">Home</a>
       @auth   
         @if (Auth::user()->role_id == 1)
-        <a class="px-1 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:block hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 focus:text-navbarText hover:text-[#afafaf] focus:bg-white focus:outline-none focus:shadow-outline" href="/manage-game">Manage Game</a>
+        <a class="px-1 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:block hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 focus:text-navbarText hover:text-[#afafaf] focus:bg-white focus:outline-none focus:shadow-outline {{ $active == "manageGame" ? 'text-[#c44d3e]':"" }}" href="/manage-game">Manage Game</a>
         @endif
       @endauth
       

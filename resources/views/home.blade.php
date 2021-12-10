@@ -12,19 +12,25 @@
         </div>
     </div>
     @endif
-    <p class="font-OpenSans uppercase py-6 text-[18px] md:text-[20px] font-bold">Top Games</p>
-    <div class="flex gap-5 py-5 md:flex-row md:justify-start justify-center flex-wrap">
-        @foreach ($games as $game)
+    @if (count($games) > 0)
+        <p class="font-OpenSans uppercase py-6 text-[18px] md:text-[20px] font-bold">Top Games</p>
+        <div class="flex gap-5 py-5 md:flex-row md:justify-start justify-center flex-wrap">
+            @foreach ($games as $game)
             <div class="relative md:w-[22%] w-[200px] h-1/3">
-                <div class="before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-[#ffffff69] before:rounded-[16px] ">
-                    <img class="rounded-[16px] w-full object-cover" src="{{ 'covers/'. $game->cover }}" />
-                    <div class="absolute bottom-5 left-3 px-3 rounded-[8px] md:max-w-xs py-2 bg-[#ffffff8e]">
-                        <h3 class="font-bold mb-1 capitalize text-[14px]">{{ $game->game_name }}</h3>
-                        <p class="font-normal capitalize text-[12px]">{{ $game->category->name }}</p>
+                <a class="hover:backdrop-blur-0" href="/game/{{ $game->slug }}">
+                    <div class="before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-[#ffffff69] before:rounded-[16px] ">
+                        <img class="rounded-[16px] w-full h-[200px] object-cover" src="{{ 'covers/'. $game->cover }}" />
+                        <div class="absolute bottom-5 left-3 px-3 rounded-[8px] md:max-w-xs py-2 bg-[#ffffff8e]">
+                            <h3 class="font-bold mb-1 capitalize text-[14px]">{{ $game->game_name }}</h3>
+                            <p class="font-normal capitalize text-[12px]">{{ $game->category->name }}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>  
-        @endforeach        
-    </div>
+            @endforeach        
+        </div>      
+    @else
+        <p class="font-OpenSans uppercase py-6 text-[18px] md:text-[20px] font-bold">Games Not Found</p>
+    @endif
 </div>
 @endsection

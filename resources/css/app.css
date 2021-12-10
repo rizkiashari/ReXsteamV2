@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.custom .tombol {
+    opacity: 0;
+}
+
+.custom:hover .tombol {
+    opacity: 100;
+}
