@@ -742,13 +742,13 @@ video {
 	margin-top: 1.25rem;
 	margin-bottom: 1.25rem;
 }
-.my-2 {
-	margin-top: 0.5rem;
-	margin-bottom: 0.5rem;
-}
 .mx-auto {
 	margin-left: auto;
 	margin-right: auto;
+}
+.my-2 {
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 .ml-4 {
 	margin-left: 1rem;
@@ -1229,10 +1229,6 @@ video {
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
 }
-.px-12 {
-	padding-left: 3rem;
-	padding-right: 3rem;
-}
 .py-6 {
 	padding-top: 1.5rem;
 	padding-bottom: 1.5rem;
@@ -1273,10 +1269,6 @@ video {
 	padding-left: 0.25rem;
 	padding-right: 0.25rem;
 }
-.px-0 {
-	padding-left: 0px;
-	padding-right: 0px;
-}
 .pb-28 {
 	padding-bottom: 7rem;
 }
@@ -1285,9 +1277,6 @@ video {
 }
 .pr-8 {
 	padding-right: 2rem;
-}
-.pb-20 {
-	padding-bottom: 5rem;
 }
 .pl-12 {
 	padding-left: 3rem;
@@ -1635,22 +1624,18 @@ video {
 		justify-content: flex-start;
 	}
 
-	.sm\:justify-center {
-		justify-content: center;
-	}
-
 	.sm\:justify-between {
 		justify-content: space-between;
-	}
-
-	.sm\:px-6 {
-		padding-left: 1.5rem;
-		padding-right: 1.5rem;
 	}
 
 	.sm\:px-0 {
 		padding-left: 0px;
 		padding-right: 0px;
+	}
+
+	.sm\:px-6 {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
 	}
 
 	.sm\:text-\[12px\] {
@@ -1763,6 +1748,11 @@ video {
 		padding-right: 11%;
 	}
 
+	.md\:px-12 {
+		padding-left: 3rem;
+		padding-right: 3rem;
+	}
+
 	.md\:px-8 {
 		padding-left: 2rem;
 		padding-right: 2rem;
@@ -1778,17 +1768,12 @@ video {
 		padding-right: 1.5rem;
 	}
 
-	.md\:px-12 {
-		padding-left: 3rem;
-		padding-right: 3rem;
+	.md\:pb-20 {
+		padding-bottom: 5rem;
 	}
 
 	.md\:pb-0 {
 		padding-bottom: 0px;
-	}
-
-	.md\:pb-20 {
-		padding-bottom: 5rem;
 	}
 
 	.md\:text-\[16px\] {

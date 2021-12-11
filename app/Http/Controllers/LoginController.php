@@ -32,11 +32,11 @@ class LoginController extends Controller
             $user = User::where(["username" => $credentials['username']])->first();
             Auth::login($user, $remember_me);
             Cookie::queue(Auth::getRecallerName(), Cookie::get(Auth::getRecallerName()), 60 * 60 * 2);
-            if (Cookie::get(Auth::getRecallerName())) {
-                return redirect('/');
-            } else {
-                return redirect('/login');
-            }
+            // if (Cookie::get(Auth::getRecallerName())) {
+            //     return redirect('/');
+            // } else {
+            //     return redirect('/login');
+            // }
             return redirect('/')->with('success', 'You are now logged in');
         }
 
