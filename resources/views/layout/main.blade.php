@@ -31,7 +31,7 @@
   <div>
     @include('partials.navbar')
     
-    <div class="max-h-full bg-[#D1D5DB]">
+    <div class="max-h-full w-full bg-[#D1D5DB]">
       @yield('content')
     </div>
     @auth
