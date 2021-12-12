@@ -26,13 +26,13 @@ Route::post("/register", [RegisterController::class, "store"]);
 
 Route::get("/login", [LoginController::class, "index"])->middleware("guest");
 Route::post("/login", [LoginController::class, "authenticate"]);
-
 Route::post("/logout", [LoginController::class, "logout"]);
 
 Route::get('/add-game', [GameController::class, 'index']);
 Route::post('/add-game', [GameController::class, 'store']);
 
 Route::get('/user/profile', [UserController::class, 'index']);
+Route::post('/user/profile', [UserController::class, "changeProfile"]);
 
 
 Route::get('/manage-game', [ManageGameController::class, 'index']);

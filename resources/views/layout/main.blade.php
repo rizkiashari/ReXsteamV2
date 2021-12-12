@@ -52,7 +52,7 @@
   @include('partials.footer')
 
   <script>
-    function imagePreview() {
+    const imagePreview = () => {
       return {
         imageUrl: '',
 
@@ -72,7 +72,7 @@
       }
     }
 
-    function videoPreview() {
+    const videoPreview = () => {
       return {
         videoUrl: '',
 

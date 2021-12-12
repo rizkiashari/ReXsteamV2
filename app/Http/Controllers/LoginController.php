@@ -31,7 +31,7 @@ class LoginController extends Controller
 
             $user = User::where(["username" => $credentials['username']])->first();
             Auth::login($user, $remember_me);
-            Cookie::queue(Auth::getRecallerName(), Cookie::get(Auth::getRecallerName()), 60 * 60 * 2);
+            Cookie::queue(Auth::getRecallerName(), Cookie::get(Auth::getRecallerName()), 60 * 2);
             // if (Cookie::get(Auth::getRecallerName())) {
             //     return redirect('/');
             // } else {
@@ -42,7 +42,6 @@ class LoginController extends Controller
 
         return back()->withErrors([
             'username' => 'Invalid user credentials.',
-            'password' => 'Invalid user credentials.'
         ]);
     }
 

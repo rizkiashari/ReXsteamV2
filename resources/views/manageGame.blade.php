@@ -16,6 +16,7 @@
       <h3 class="font-OpenSans font-semibold text-[16px] capitalize mb-3 md:text-[24px]">Manage Game</h3>
       <form action="/manage-game" method="GET" >
         {{-- By Name --}}
+        @csrf
         <p class="capitalize text-[12px] md:text-[16px] mb-2 font-medium ">Filter by Games Name</p>
         <div class="mb-4 w-[250px] relative">
           <div class="absolute top-0 left-4 mt-3 mr-3">
