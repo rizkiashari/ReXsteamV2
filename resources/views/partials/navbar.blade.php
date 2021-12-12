@@ -20,6 +20,8 @@
     <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
       <div class="pl-4 relative md:block hidden">
         <div class="flex">
+          <form action="/search" method="GET">
+            @csrf
             <button class="absolute top-0 bottom-0 left-[1.8em] border-0 rounded-l-md ">
                 <svg class="w-5 h-5 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24">
@@ -28,7 +30,8 @@
                     </path>
                 </svg>
             </button>
-            <input type="text" class="pl-[3em] text-[14px] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
+            <input type="text" name="search_game" class="pl-[3em] text-[14px] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
+          </form>
         </div>
       </div>
       <a class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white block md:hidden dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-[#afafaf] focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline {{ $active == "home" ? 'text-[#c44d3e]':"" }}" href="/">
@@ -52,13 +55,17 @@
               @if (Auth::user()->photo == null)
                 <div class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white">
                   <p class="text-[#fff] uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr(Auth::user()->fullname , 0, 1) }}</p>              
-                </div>                
+                </div>
+              @else
+                <img class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white" src="{{ asset('profile/'.Auth::user()->photo) }}" alt="profile user">              
               @endif
             @else
               @if (Auth::user()->photo == null)
                 <div class="inline-block h-10 w-10 md:ml-0 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white">
                   <p class="text-[#fff] mt-1 uppercase font-medium font-Oswald text-[20px]" >{{ substr(Auth::user()->fullname , 0, 1) }}</p>              
-                </div>                
+                </div>
+              @else
+                <img class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white" src="{{ asset('profile/'.Auth::user()->photo) }}" alt="profile user">                
               @endif                           
             @endif
           </button>
@@ -93,15 +100,15 @@
       @endauth  
       <div class="pl-4 relative block md:hidden mt-2">
         <div class="flex">
+          <form action="/search" method="GET">
+            @csrf
             <button class="absolute top-0 bottom-0 left-[1.8em] border-0 rounded-l-md ">
-                <svg class="w-5 h-5 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24">
-                    <path
-                        d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" fill="#f1f1f1">
-                    </path>
-                </svg>
+              <svg class="w-5 h-5 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" fill="#f1f1f1"></path>
+              </svg>
             </button>
-            <input type="text" class="text-[14px] pl-[3em] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
+            <input type="text" name="search_game" class="text-[14px] pl-[3em] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
+          </form>
         </div>
       </div>
     </nav>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Game;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
 class GameController extends Controller
@@ -20,7 +20,6 @@ class GameController extends Controller
         ]);
     }
 
-    // store game
     public function store(Request $request)
     {
         $request->validate(
@@ -96,5 +95,22 @@ class GameController extends Controller
         $game->save();
 
         return redirect('/')->with('success', 'Game added successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $game01 = Game::join('categories', "categories.id", 'games.category_id')->paginate(8);
+
+        // Search by game name
+        if ($request->get('search_game')) {
+            $search = $request->get('search_game');
+            $game = Game::where('game_name', 'like', '%' . $search . '%')->paginate(8);
+        }
+
+        return view('search', [
+            'title' => 'Search',
+            'active' => 'search',
+            'games' => $game ?? $game01
+        ]);
     }
 }

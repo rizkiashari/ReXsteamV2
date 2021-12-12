@@ -28,6 +28,7 @@ Route::get("/login", [LoginController::class, "index"])->middleware("guest");
 Route::post("/login", [LoginController::class, "authenticate"]);
 Route::post("/logout", [LoginController::class, "logout"]);
 
+Route::get('/search', [GameController::class, 'search']);
 Route::get('/add-game', [GameController::class, 'index']);
 Route::post('/add-game', [GameController::class, 'store']);
 

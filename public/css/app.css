@@ -1331,6 +1331,12 @@ video {
 .pl-\[3em\] {
 	padding-left: 3em;
 }
+.pt-4 {
+	padding-top: 1rem;
+}
+.pt-6 {
+	padding-top: 1.5rem;
+}
 .text-left {
 	text-align: left;
 }
