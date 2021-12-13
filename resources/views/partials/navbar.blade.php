@@ -30,7 +30,7 @@
                     </path>
                 </svg>
             </button>
-            <input type="text" name="search_game" class="pl-[3em] text-[14px] py-2 w-[15em] text-[#fff] rounded-md bg-[#374151]" placeholder="Search...">
+            <input type="text" name="search_game" class="pl-[3em] text-[14px] py-2 w-[15em] text-[#fff] focus:bg-[#130b0b] rounded-md bg-[#374151]" placeholder="Search...">
           </form>
         </div>
       </div>

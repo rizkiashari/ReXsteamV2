@@ -52,7 +52,6 @@ class ManageGameController extends Controller
 
     public function update(Request $request, Game $game)
     {
-
         $request->validate(
             [
                 'description' => 'required|max:500',

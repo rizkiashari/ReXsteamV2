@@ -31,6 +31,8 @@ Route::post("/logout", [LoginController::class, "logout"]);
 Route::get('/search', [GameController::class, 'search']);
 Route::get('/add-game', [GameController::class, 'index']);
 Route::post('/add-game', [GameController::class, 'store']);
+Route::get('/game/{game:slug}', [GameController::class, 'detail']);
+Route::post('/game/{game:slug}', [GameController::class, 'checkAge']);
 
 Route::get('/user/profile', [UserController::class, 'index']);
 Route::post('/user/profile', [UserController::class, "changeProfile"]);
@@ -38,6 +40,5 @@ Route::post('/user/profile', [UserController::class, "changeProfile"]);
 
 Route::get('/manage-game', [ManageGameController::class, 'index']);
 Route::delete('/game/{game:slug}/delete', [ManageGameController::class, 'destroy']);
-
 Route::get('/game/{game:slug}/update', [ManageGameController::class, 'edit']);
 Route::post('/game/{game:slug}/update', [ManageGameController::class, 'update']);

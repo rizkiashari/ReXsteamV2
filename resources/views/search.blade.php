@@ -17,7 +17,7 @@
         <div class="flex gap-5 py-3 md:flex-row md:justify-start sm:justify-start justify-center flex-wrap">
             @foreach ($games as $game)
             <div class="relative md:w-[22%] w-[200px] h-1/3">
-                <a class="hover:backdrop-blur-0" href="/game/{{ $game->slug }}">
+                <a class="hover:backdrop-blur-0" href="/game/{{  $game->slug }}">
                     <div class="before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-[#ffffff69] before:rounded-[16px] ">
                         <img class="rounded-[16px] w-full h-[200px] object-cover" src="{{ 'covers/'. $game->cover }}" alt="cover game" />
                         <div class="absolute bottom-5 left-3 px-3 rounded-[8px] md:max-w-xs py-2 bg-[#ffffff8e]">
