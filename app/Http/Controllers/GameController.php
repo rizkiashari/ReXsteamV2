@@ -136,6 +136,9 @@ class GameController extends Controller
         $month = (int) $request->month;
         $year = (int) $request->year;
 
+        // Join Game and Category
+        $game = Game::join('categories', "categories.id", 'games.category_id')->where('games.id', $game->id)->first();
+
         // Validasi Bulan Februari
         if ($month == 2) {
             if ($day == 29 && $year % 4 == 0) {
@@ -205,7 +208,7 @@ class GameController extends Controller
             }
         }
 
-        // Validasi Selain itu
+        // Validasi Selain bulan Februari dan April, Juni, September, November
         $birthDate = $request->day . '-' . $request->month . '-' . $request->year;
         $currentDate = date("d-m-Y");
         $ageDiff = date_diff(date_create($birthDate), date_create($currentDate));
