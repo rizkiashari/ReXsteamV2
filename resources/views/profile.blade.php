@@ -81,7 +81,7 @@
                     <label for="photo" class="cursor-pointer w-full h-full text-[#111827] uppercase ml-[0.5em] font-medium font-Oswald text-[4em] md:text-[6em]" >{{ substr($user->fullname , 0, 1) }}</label>
                   </template>
                   <template x-if="imageUrl">
-                    <img :src="imageUrl" class="inline-block h-[100px] w-[100px] object-cover md:h-[150px] md:w-[150px] rounded-full ring-2 ring-white" />
+                    <img :src="imageUrl" class="inline-block h-[100px]  w-[100px] object-cover md:h-[150px] md:w-[150px] rounded-full ring-2 ring-white" />
                   </template>          
                   <input type="file" @change="fileChosen" class="hidden" name="photo" id="photo" />
                 </div>
@@ -89,7 +89,7 @@
                 <div x-data='imagePreview()'>
                   <label for="photo" class="cursor-pointer">
                     <template x-if="!imageUrl">
-                      <img class="inline-block h-[100px] w-[100px] md:h-[150px] md:w-[150px] rounded-full ring-2 ring-white" src="{{ '/profile/'. $user->photo }}" alt="">
+                      <img class="inline-block h-[100px] w-[100px] md:h-[150px] md:w-[150px] object-cover rounded-full ring-2 ring-white" src="{{ '/profile/'. $user->photo }}" alt="">
                     </template>
                     <template x-if="imageUrl">
                       <img :src="imageUrl" class="inline-block h-[100px] w-[100px] object-cover md:h-[150px] md:w-[150px] rounded-full ring-2 ring-white" />

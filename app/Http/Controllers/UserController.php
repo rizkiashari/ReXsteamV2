@@ -58,7 +58,7 @@ class UserController extends Controller
                 'photo' => $imageName,
             ]);
 
-            return redirect()->back()->with('success', 'Succes updated photo profile successfully');
+            return redirect()->back()->with('success', 'Success updated photo profile successfully');
         }
 
         if ($request->password && $request->photo) {
