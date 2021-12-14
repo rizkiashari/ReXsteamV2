@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Game;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 
 class GameController extends Controller
@@ -136,9 +137,6 @@ class GameController extends Controller
         $month = (int) $request->month;
         $year = (int) $request->year;
 
-        // Join Game and Category
-        $game = Game::join('categories', "categories.id", 'games.category_id')->where('games.id', $game->id)->first();
-
         // Validasi Bulan Februari
         if ($month == 2) {
             if ($day == 29 && $year % 4 == 0) {
@@ -224,6 +222,82 @@ class GameController extends Controller
             ]);
         } else {
             return redirect('/')->with('error', 'You must be at least 17 years old to play this game');
+        }
+    }
+
+    public function addToCart($id)
+    {
+        $game = Game::findOrFail($id);
+        $cart = Cookie::get('cart');
+
+        if (!$cart) {
+            $cart = json_decode($cart, true);
+            $cart[$id] = $game;
+
+            Cookie::queue('cart', json_encode($cart), 60);
+
+            return redirect('/')->with('success', 'Game success added to cart');
+        } else {
+            $cart = json_decode($cart, true);
+
+            if (array_key_exists($id, $cart)) {
+                return redirect('/')->with('error', 'This game already in your cart');
+            } else {
+                $cart[$id] = $game;
+
+                Cookie::queue('cart', json_encode($cart), 60);
+
+                return redirect('/')->with('success', 'Game success added to cart');
+            }
+        }
+    }
+
+    public function detailShoppingCart()
+    {
+        $cart = Cookie::get('cart');
+
+
+        if (!$cart) {
+            return redirect('/')->with('error', 'Your cart is empty');
+        } else {
+            $cart = json_decode($cart, true);
+            $game = Game::with('category')->whereIn('id', array_keys($cart))->get();
+            $total = 0;
+
+            foreach ($cart as $key => $value) {
+                // dd($value['price']);
+                $total += $value['price'];
+            }
+
+            // dd($cart);
+            // dd($total);
+
+            return view('shoppingcart', [
+                'title' => 'Shopping Cart',
+                'active' => 'shoppingcart',
+                'games' => $game,
+                'total' => $total
+            ]);
+        }
+    }
+
+    public function deleteCart($id)
+    {   
+        $cart = Cookie::get('cart');
+
+        if (!$cart) {
+            return redirect('/')->with('error', 'Your cart is empty');
+        } else {
+            $cart = json_decode($cart, true);
+
+            if (array_key_exists($id, $cart)) {
+                unset($cart[$id]);
+                Cookie::queue('cart', json_encode($cart), 60);
+
+                return redirect('/shopping-cart')->with('success', 'Game success deleted from cart');
+            } else {
+                return redirect('/shopping-cart')->with('error', 'Game not found in cart');
+            }
         }
     }
 }

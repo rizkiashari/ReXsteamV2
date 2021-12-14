@@ -34,6 +34,11 @@ Route::post('/add-game', [GameController::class, 'store']);
 Route::get('/game/{game:slug}', [GameController::class, 'detail']);
 Route::post('/game/{game:slug}', [GameController::class, 'checkAge']);
 
+Route::get('/game/add-to-cart/{game:id}', [GameController::class, 'addToCart']);
+
+Route::get('/shopping-cart', [GameController::class, 'detailShoppingCart']);
+Route::get('/shopping-cart/{game:id}', [GameController::class, 'deleteCart']);
+
 Route::get('/user/profile', [UserController::class, 'index']);
 Route::post('/user/profile', [UserController::class, "changeProfile"]);
 

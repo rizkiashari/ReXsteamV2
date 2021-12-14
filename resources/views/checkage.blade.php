@@ -48,7 +48,7 @@
                                     @endfor
                                 </select>
                             </div>
-                            <div class="w-[100px]">
+                            <div class="w-[110px]">
                                 <label class="text-[12px] md:text-[14px]">Month</label>
                                 <select name="month" class="bg-[#f1f1f1] text-[10px] px-2 py-1 md:text-[12px] w-full border-2 border-[#111854] rounded">
                                     @foreach ($months as $idx => $month)

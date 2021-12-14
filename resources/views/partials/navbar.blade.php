@@ -43,12 +43,19 @@
         @endif
         @if (Auth::user()->role_id == 2)     
         <a href="/shopping-cart" class="px-4 py-2 mt-2 text-sm font-semibold text-navbarText bg-white rounded-lg dark-mode:bg-white dark-mode:hover:bg-white dark-mode:focus:bg-white dark-mode:focus:text-white md:mx-3 dark-mode:hover:text-navbarText dark-mode:text-navbarText md:mt-0 hover:text-[#afafaf]  focus:text-navbarText hover:bg-white focus:bg-white focus:outline-none focus:shadow-outline">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
-            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-          </svg>
+          <?php
+            (array)json_decode(Cookie::get('cart')) == [] ? $cart = 0 : $cart = count((array)json_decode(Cookie::get('cart')));
+          ?>
+          <div class="flex items-center relative">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            <div class="bg-[#d42e0d] absolute text-[#fff] rounded-[100px] left-[10px] top-[-8px] text-[10px] px-[7px]">
+              {{ $cart }}
+            </div>
+          </div>
         </a>
         @endif
-
         <div x-data="{ dropdown: false }">
           <button @click="dropdown = !dropdown">
             @if (Auth::user()->role_id == 1)
