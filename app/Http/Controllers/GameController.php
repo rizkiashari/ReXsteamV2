@@ -255,8 +255,6 @@ class GameController extends Controller
     public function detailShoppingCart()
     {
         $cart = Cookie::get('cart');
-
-
         if (!$cart) {
             return redirect('/')->with('error', 'Your cart is empty');
         } else {
@@ -282,7 +280,7 @@ class GameController extends Controller
     }
 
     public function deleteCart($id)
-    {   
+    {
         $cart = Cookie::get('cart');
 
         if (!$cart) {

@@ -24,6 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('cvc_cvv');
             $table->string('card_country', 100);
             $table->integer('postal_code');
+            $table->integer('total');
             $table->timestamps();
         });
     }

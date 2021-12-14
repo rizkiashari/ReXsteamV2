@@ -9,7 +9,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['uuid_transaction', 'user_id', 'card_name', 'card_number', 'expired_month', 'expired_year', 'cvc_cvv', 'card_country', 'postal_code'];
+    protected $fillable = ['uuid_transaction', 'user_id', 'card_name', 'card_number', 'expired_month', 'expired_year', 'cvc_cvv', 'card_country', 'postal_code', 'total'];
 
     public function user()
     {
@@ -18,6 +18,6 @@ class Transaction extends Model
 
     public function transaction_detail()
     {
-        return $this->hasOne(TransactionDetail::class);
+        return $this->hasMany(TransactionDetail::class);
     }
 }

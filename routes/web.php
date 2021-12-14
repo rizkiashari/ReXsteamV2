@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ManageGameController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,10 @@ Route::get('/game/add-to-cart/{game:id}', [GameController::class, 'addToCart']);
 
 Route::get('/shopping-cart', [GameController::class, 'detailShoppingCart']);
 Route::get('/shopping-cart/{game:id}', [GameController::class, 'deleteCart']);
+Route::get('/transaction', [TransactionController::class, 'idxTransaction']);
+Route::post('/transaction', [TransactionController::class, 'storeTransaction']);
+
+Route::get('/transaction/{transaction:uuid_transaction}', [TransactionController::class, 'receiptTransaction']);
 
 Route::get('/user/profile', [UserController::class, 'index']);
 Route::post('/user/profile', [UserController::class, "changeProfile"]);
