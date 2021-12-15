@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\User;
 use App\Rules\CardCVVCVCRule;
 use App\Rules\CardExpiredYearRule;
 use App\Rules\CardNumberRule;
@@ -59,6 +60,9 @@ class TransactionController extends Controller
 
     public function storeTransaction(Request $request)
     {
+        // Update Level table user
+        $user = User::findOrFail(Auth::user()->id);
+
         if (Auth::check()) {
             $request->validate([
                 'card_name' => 'required|min:6',
@@ -74,6 +78,9 @@ class TransactionController extends Controller
             $total = 0;
 
             $transaction = new Transaction();
+            // Update Level table user
+            $user->level = $user->level + 1;
+            
             $transaction->user_id = Auth::user()->id;
             $transaction->uuid_transaction = Str::uuid()->toString();
             $transaction->card_name = $request->card_name;
@@ -83,11 +90,12 @@ class TransactionController extends Controller
             $transaction->cvc_cvv = $request->cvc_cvv;
             $transaction->card_country = $request->card_country;
             $transaction->postal_code = $request->postal_code;
-
+            
             foreach ($cart as $key => $value) {
                 $total += $value['price'];
             }
             $transaction->total = $total;
+            $user->save();
             $transaction->save();
             foreach ($cart as $key => $value) {
 

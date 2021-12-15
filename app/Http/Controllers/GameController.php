@@ -7,6 +7,7 @@ use App\Models\Game;
 use App\Models\TransactionDetail;
 use App\Rules\PriceRule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 
@@ -15,11 +16,16 @@ class GameController extends Controller
     public function index()
     {
         $category = Category::all();
-        return view('addGame', [
-            'title' => 'Add Game',
-            'active' => 'addGame',
-            'categories' => $category
-        ]);
+        if (Auth::check()) {
+
+            return view('addGame', [
+                'title' => 'Add Game',
+                'active' => 'addGame',
+                'categories' => $category
+            ]);
+        } else {
+            return redirect('/login');
+        }
     }
 
     public function store(Request $request)

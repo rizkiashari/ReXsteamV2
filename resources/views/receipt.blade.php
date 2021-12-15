@@ -55,7 +55,7 @@
           <h4 class="text-[16px]">Total Price: </h4>
           <h4 class="font-medium md:text-[18px] sm:text-[16px] text-[14px] " >Rp.{{ number_format($total,  0, ".", ".")  }}</h4>
         </div>
-        <a href="/" class="bg-[#111544] px-3 py-2 text-[#f1f1f1] text-[14px] rounded-lg" >Back to home</a>
+        <a href="/history" class="bg-[#111544] px-3 py-2 text-[#f1f1f1] text-[14px] rounded-lg" >All History Transaction</a>
       </div>
     </div>
   </div>

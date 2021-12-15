@@ -65,7 +65,11 @@
                 </div>
                 <div class="w-[30%]">
                   <h3 class="mb-1 text-[12px] font-semibold md:text-[16px]">Level</h3>
-                  <p class="w-full px-2 md:px-3 border-[1px] rounded-[8px] text-[12px] md:text-[16px] focus:bg-[#e7e7e7dd] border-[#cecece] py-1 md:py-2">0</p>
+                  @if(Auth::user()->role_id == 1)
+                    <p class="w-full px-2 md:px-3 border-[1px] rounded-[8px] text-[12px] md:text-[16px] focus:bg-[#e7e7e7dd] border-[#cecece] py-1 md:py-2">0</p>
+                    @else
+                    <p class="w-full px-2 md:px-3 border-[1px] rounded-[8px] text-[12px] md:text-[16px] focus:bg-[#e7e7e7dd] border-[#cecece] py-1 md:py-2">{{ Auth::user()->level }}</p>
+                  @endif
                 </div>
               </div>
               <div class="w-full">

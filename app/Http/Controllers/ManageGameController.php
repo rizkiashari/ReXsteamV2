@@ -6,30 +6,35 @@ use App\Models\Category;
 use App\Models\Game;
 use App\Rules\PriceRule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ManageGameController extends Controller
 {
     public function index(Request $request)
     {
-        $category = Category::all();
-        $games01 = Game::join('categories', "categories.id", 'games.category_id')->paginate(8);
+        if (Auth::check()) {
+            $category = Category::all();
+            $games01 = Game::join('categories', "categories.id", 'games.category_id')->paginate(8);
 
-        if ($request->get('category')) {
-            $checked = $_GET['category'];
-            $games = Game::join('categories', "categories.id", 'games.category_id')->whereIn('category_id', $checked)->paginate(8);
-        }
-        if ($request->get('search')) {
-            $search = $request->get('search');
-            $games = Game::join('categories', "categories.id", 'games.category_id')->where('game_name', 'like', '%' . $search . '%')->paginate(8);
-        }
+            if ($request->get('category')) {
+                $checked = $_GET['category'];
+                $games = Game::join('categories', "categories.id", 'games.category_id')->whereIn('category_id', $checked)->paginate(8);
+            }
+            if ($request->get('search')) {
+                $search = $request->get('search');
+                $games = Game::join('categories', "categories.id", 'games.category_id')->where('game_name', 'like', '%' . $search . '%')->paginate(8);
+            }
 
-        return view('manageGame', [
-            'title' => 'Manage Game',
-            'active' => 'manageGame',
-            'categories' => $category,
-            'games' => $games ?? $games01,
-        ]);
+            return view('manageGame', [
+                'title' => 'Manage Game',
+                'active' => 'manageGame',
+                'categories' => $category,
+                'games' => $games ?? $games01,
+            ]);
+        } else {
+            return redirect('/login');
+        }
     }
 
     public function destroy(Game $game)
