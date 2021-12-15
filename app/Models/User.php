@@ -20,6 +20,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function friends()
+    {
+        return $this->hasMany(Friend::class);
+    }
+
     public function transaction()
     {
         return $this->hasMany(Transaction::class);
