@@ -15,6 +15,24 @@ use Illuminate\Support\Str;
 
 class TransactionController extends Controller
 {
+
+    public function index()
+    {
+        $transactions = Transaction::where('user_id', Auth::user()->id)->get();
+
+        $detailTransaction = [];
+        foreach ($transactions as $transaction) {
+            $detailTransaction[$transaction->id] = TransactionDetail::where('transaction_id', $transaction->id)->get();
+        }
+
+        return view('history', [
+            'title' => 'History',
+            'active' => 'history',
+            'transactions' => $transactions,
+            'transactionDetails' => $detailTransaction,
+        ]);
+    }
+
     public function idxTransaction()
     {
         if (Auth::check()) {

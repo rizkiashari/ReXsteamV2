@@ -37,6 +37,7 @@ Route::post('/game/{game:slug}', [GameController::class, 'checkAge']);
 
 Route::get('/game/add-to-cart/{game:id}', [GameController::class, 'addToCart']);
 
+Route::get('/history', [TransactionController::class, 'index']);
 Route::get('/shopping-cart', [GameController::class, 'detailShoppingCart']);
 Route::get('/shopping-cart/{game:id}', [GameController::class, 'deleteCart']);
 Route::get('/transaction', [TransactionController::class, 'idxTransaction']);
