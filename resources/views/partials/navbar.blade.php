@@ -82,7 +82,7 @@
               Profile
             </a>
             @if (Auth::user()->role_id == 2)
-            <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+            <a href="/user/friend" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
               Friends
             </a>
             <a href="/history" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">

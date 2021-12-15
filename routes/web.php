@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -53,3 +54,5 @@ Route::get('/manage-game', [ManageGameController::class, 'index']);
 Route::delete('/game/{game:slug}/delete', [ManageGameController::class, 'destroy']);
 Route::get('/game/{game:slug}/update', [ManageGameController::class, 'edit']);
 Route::post('/game/{game:slug}/update', [ManageGameController::class, 'update']);
+
+Route::get('/user/friend', [FriendController::class, 'index']);
