@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Game;
 use App\Models\TransactionDetail;
+use App\Rules\PriceRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
@@ -33,7 +34,7 @@ class GameController extends Controller
                 'release_date' => 'date_format:Y-m-d|nullable',
                 'developer' => 'required',
                 'publisher' => 'required',
-                'price' => 'required|numeric|digits_between:1,7',
+                'price' => ['required', 'numeric', new PriceRule],
                 'cover' => 'required|image|mimes:jpg|max:100024',
                 'trailer' => 'required|mimetypes:video/webm|max:100000024',
                 'is_adult' => 'boolean',
@@ -51,7 +52,6 @@ class GameController extends Controller
                 'publisher.required' => 'Game publisher is required',
                 'price.required' => 'Game price is required',
                 'price.numeric' => 'Game price must be numeric',
-                'price.digits_between' => 'Game price must be less than 1 millions',
                 'cover.required' => 'Game cover is required',
                 'cover.image' => 'Game cover must be an image',
                 'cover.mimes' => 'Game cover extension must be jpg file',

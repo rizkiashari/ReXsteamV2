@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Game;
+use App\Rules\PriceRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -57,7 +58,7 @@ class ManageGameController extends Controller
                 'description' => 'required|max:500',
                 'long_description' => 'required|max:2000',
                 'category_id' => 'required',
-                'price' => 'required|numeric|digits_between:1,7',
+                'price' => ['required', 'numeric', new PriceRule],
                 'cover' => 'required|image|mimes:jpg|max:100024',
                 'trailer' => 'required|mimetypes:video/webm|max:100000024',
             ],
@@ -69,7 +70,6 @@ class ManageGameController extends Controller
                 'category_id.required' => 'Game category is required',
                 'price.required' => 'Game price is required',
                 'price.numeric' => 'Game price must be numeric',
-                'price.digits_between' => 'Game price must be less than 1 millions',
                 'cover.required' => 'Game cover is required',
                 'cover.image' => 'Game cover must be an image',
                 'cover.mimes' => 'Game cover extension must be jpg file',
