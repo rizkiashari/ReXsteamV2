@@ -56,3 +56,4 @@ Route::get('/game/{game:slug}/update', [ManageGameController::class, 'edit']);
 Route::post('/game/{game:slug}/update', [ManageGameController::class, 'update']);
 
 Route::get('/user/friend', [FriendController::class, 'index']);
+Route::post('/user/friend', [FriendController::class, 'addFriends']);

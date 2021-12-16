@@ -33,7 +33,6 @@ class TransactionController extends Controller
             'transactionDetails' => $detailTransaction,
         ]);
     }
-
     public function idxTransaction()
     {
         if (Auth::check()) {
@@ -57,12 +56,9 @@ class TransactionController extends Controller
             return redirect('/login')->with('error', 'Please login or Register');
         }
     }
-
     public function storeTransaction(Request $request)
     {
-        // Update Level table user
         $user = User::findOrFail(Auth::user()->id);
-
         if (Auth::check()) {
             $request->validate([
                 'card_name' => 'required|min:6',
@@ -78,7 +74,6 @@ class TransactionController extends Controller
             $total = 0;
 
             $transaction = new Transaction();
-            // Update Level table user
             $user->level = $user->level + 1;
             
             $transaction->user_id = Auth::user()->id;
@@ -94,6 +89,7 @@ class TransactionController extends Controller
             foreach ($cart as $key => $value) {
                 $total += $value['price'];
             }
+
             $transaction->total = $total;
             $user->save();
             $transaction->save();
@@ -115,7 +111,6 @@ class TransactionController extends Controller
 
         return redirect('/')->with('success', 'Transaction Success');
     }
-
     public function receiptTransaction($uuid)
     {
         $transaction = Transaction::where('uuid_transaction', $uuid)->first();

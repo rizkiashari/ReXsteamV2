@@ -52,6 +52,6 @@ class LoginController extends Controller
         Cookie::queue(Cookie::forget(Auth::getRecallerName()));
         request()->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/login')->with('success', 'Success, You are now logged out');
     }
 }
