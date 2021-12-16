@@ -270,14 +270,13 @@ class GameController extends Controller
     {
         $cart = Cookie::get('cart');
         if (!$cart) {
-            return redirect('/')->with('error', 'Your cart is empty');
+            return redirect()->back()->with('error', 'Your cart is empty');
         } else {
             $cart = json_decode($cart, true);
             $game = Game::with('category')->whereIn('id', array_keys($cart))->get();
             $total = 0;
 
             foreach ($cart as $key => $value) {
-                // dd($value['price']);
                 $total += $value['price'];
             }
 

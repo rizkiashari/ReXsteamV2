@@ -54,9 +54,9 @@
         <h3 class="md:text[16px] text-[14px] capitalize font-semibold mb-3">Add Friend</h3>
         <form method="POST" action="/user/friend" enctype="multipart/form-data" >
           @csrf
-          <div class="flex gap-3 w-[400px] mb-8">
-            <input name="username" type="text" class="px-3 rounded-md py-1 border-[1px] border-[#aeafb1]" />
-            <button class="text-[12px] md:text-[14px] px-3 py-2 rounded-md bg-[#4B5563] hover:bg-[#3d4755] text-[#fff]">Add Friend</button>
+          <div class="flex flex-wrap gap-[8px] w-full mb-8">
+            <input name="username" type="text" class="px-2 w-[50%] md:w-[200px] rounded-md py-1 border-[1px] border-[#aeafb1]" />
+            <button class="sm:text-[12px] text-[10px] md:text-[14px] px-3 py-2 rounded-md bg-[#4B5563] hover:bg-[#3d4755] text-[#fff]">Add Friend</button>
           </div>
         </form>
         <h3 class="md:text[16px] text-[14px] capitalize font-semibold mb-3">Incoming Friend Requests</h3>

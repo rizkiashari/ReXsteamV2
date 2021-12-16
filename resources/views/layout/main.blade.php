@@ -61,7 +61,7 @@
         },
 
         fileToDataUrl(event, callback) {
-          if (! event.target.files.length) return
+          if (!event.target.files.length) return
 
           let file = event.target.files[0],
               reader = new FileReader()
@@ -80,8 +80,9 @@
           this.fileToDataUrl(event, src => this.videoUrl = src)
         },
 
+
         fileToDataUrl(event, callback) {
-          if (! event.target.files.length) return
+          if (!event.target.files.length) return
 
           let file = event.target.files[0],
               reader = new FileReader()
