@@ -101,7 +101,8 @@
                 </div>
             </div>
         </div>
-        @if (Auth::user()->role_id == 2 && $transactionDetail == null)
+        {{-- {{ dd($transaction) }} --}}
+        @if (Auth::user()->role_id == 2 && $transaction == null)
             <div class="bg-[#fff] w-full mt-8 py-4 px-3 rounded-md">
                 <h3 class="font-semibold">Buy {{ $game->game_name }}</h3>
                 <div class="w-full relative top-[-2px] right-2">

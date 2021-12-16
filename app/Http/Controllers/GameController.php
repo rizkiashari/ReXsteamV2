@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Game;
 use App\Models\TransactionDetail;
+use App\Models\Transaction;
 use App\Rules\PriceRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -123,14 +124,16 @@ class GameController extends Controller
 
     public function detail(Game $game)
     {
-        $transactionDetail = TransactionDetail::where('game_id', $game->id)->first();
-        // dd($transactionDetail);
+        $transaction = Transaction::join('transaction_details', 'transaction_details.transaction_id', 'transactions.id')->where('transaction_details.game_id', $game->id)->where('user_id', Auth::user()->id)->first();
+        // dd($transaction);
+
         if ($game->is_adult == 0) {
             return view('detailgame', [
                 'title' => $game->game_name,
                 'active' => 'detail',
                 'game' => $game,
-                'transactionDetail' => $transactionDetail
+                // 'transactionDetail' => $transactionDetail,
+                'transaction' => $transaction
             ]);
         } else {
             return view('checkage', [
@@ -146,7 +149,7 @@ class GameController extends Controller
         $day = (int) $request->day;
         $month = (int) $request->month;
         $year = (int) $request->year;
-        $transactionDetail = TransactionDetail::where('game_id', $game->id)->first();
+        $transaction = Transaction::join('transaction_details', 'transaction_details.transaction_id', 'transactions.id')->where('transaction_details.game_id', $game->id)->where('user_id', Auth::user()->id)->first();
 
         // Validasi Bulan Februari
         if ($month == 2) {
@@ -163,7 +166,7 @@ class GameController extends Controller
                         'title' => $game->game_name,
                         'active' => 'detail',
                         'game' => $game,
-                        'transactionDetail' => $transactionDetail
+                        'transaction' => $transaction
                     ]);
                 } else {
                     return redirect('/')->with('error', 'You must be at least 17 years old to play this game');
@@ -183,7 +186,7 @@ class GameController extends Controller
                         'title' => $game->game_name,
                         'active' => 'detail',
                         'game' => $game,
-                        'transactionDetail' => $transactionDetail
+                        'transaction' => $transaction
                     ]);
                 } else {
                     return redirect('/')->with('error', 'You must be at least 17 years old to play this game');
@@ -208,7 +211,7 @@ class GameController extends Controller
                         'title' => $game->game_name,
                         'active' => 'detail',
                         'game' => $game,
-                        'transactionDetail' => $transactionDetail
+                        'transaction' => $transaction
                     ]);
                 } else {
                     return redirect('/')->with('error', 'You must be at least 17 years old to play this game');
@@ -229,7 +232,7 @@ class GameController extends Controller
                 'title' => $game->game_name,
                 'active' => 'detail',
                 'game' => $game,
-                'transactionDetail' => $transactionDetail
+                'transaction' => $transaction
             ]);
         } else {
             return redirect('/')->with('error', 'You must be at least 17 years old to play this game');
