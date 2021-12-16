@@ -74,13 +74,13 @@ class FriendController extends Controller
     public function cancelStatus(Friend $friend)
     {
         $friend->delete();
-        return redirect()->back()->with('success', 'Cancel Successfully');
+        return redirect()->back()->with('success', 'You have canceled your friend request');
     }
 
     public function rejectStatus(Friend $friend)
     {
         $friend->delete();
-        return redirect()->back()->with('success', 'Rejected Successfully');
+        return redirect()->back()->with('success', 'You have rejected your friend request');
     }
 
     public function acceptStatus(Friend $friend)
@@ -88,6 +88,6 @@ class FriendController extends Controller
         $friend->status_user = "Success";
         $friend->status_friend = "Success";
         $friend->save();
-        return redirect()->back()->with('success', 'Success Successfully');
+        return redirect()->back()->with('success', 'You have successfully accepted your friend request');
     }
 }
