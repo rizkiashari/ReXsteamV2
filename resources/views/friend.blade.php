@@ -61,170 +61,216 @@
         </form>
         <h3 class="md:text[16px] text-[14px] capitalize font-semibold mb-3">Incoming Friend Requests</h3>
         <div class="flex gap-4 flex-wrap mb-8">
-          @if (count($friends) == 0)
-            <p class="text-[14px] text-[#b1b1b1]">There is no incoming friend request.</p>
+          @if (count($friendsIncoming) == 0)
+            <p class="text-[14px] text-[#b1b1b1]">There is no incoming friend request</p>
           @else
-            @foreach ($friends as $friend)
-              @if ($friend->status_user == 'Incoming' && $friend->friend_id == Auth::user()->id)
-                <form action="/status/accept" enctype="multipart/form-data" method="POST">
-                  <div class="bg-[#fcfcfc] w-[300px] rounded-md shadow-md">
-                    <div class="flex justify-between px-4 py-5">
-                      <div>
-                        <div class="flex gap-8 mb-2 items-center">
-                          <h3 class="text-[14px] capitalize">Rizki Ashari</h3>
-                          <p class="text-[#28a873] bg-[#45f5ac] text-[8px] rounded-[50px] flex px-1 py-0.5">12</p>
-                        </div>
-                        <h3 class="capitalize text-[#868585] text-[10px]">Member</h3>
+            @foreach ($friendsIncoming as $friend)
+              @if ($friend->status_user == 'Incoming')
+                <div class="bg-[#fcfcfc] w-[300px] rounded-md shadow-md">
+                  <div class="flex justify-between px-4 py-5">
+                    <div>
+                      <div class="flex gap-8 mb-2 items-center">
+                        <h3 class="text-[14px] capitalize">{{ $friend->fullname }}</h3>
+                        <p class="text-[#28a873] bg-[#45f5ac] text-[8px] rounded-[50px] flex px-1 py-0.5">{{ $friend->level }}</p>
                       </div>
-                      <img src="https://media.istockphoto.com/photos/little-gamer-in-headset-near-compute-picture-id1342094843?b=1&k=20&m=1342094843&s=170667a&w=0&h=3uN5LbqY_2sJgcdn89JfoiN98k2p4cXy5k9R_zEplFA=" class="inline-block h-12 w-12 rounded-full object-cover"/>
+                      <h3 class="capitalize text-[#868585] text-[10px]">{{ $friend->role }}</h3>
                     </div>
-                    <div class="border-b-[1px] border-[#cfcfcf]"></div>
-                    <div class="flex justify-between">
-                      <button class="flex gap-2 items-center px-10 py-4">
+                    @if ($friend->profile == null)
+                      <div class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white">
+                        <p class="text-[#111827] text-center uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr($friend->fullname , 0, 1) }}</p>                       
+                      </div>
+                    @else
+                      <img class="inline-block h-12 w-12 rounded-full object-cover" src="{{ '/profile/'. $friend->profile }}" alt="img cover">                         
+                    @endif
+                  </div>
+                  <div class="border-b-[1px] border-[#cfcfcf]"></div>
+                  <div class="flex justify-between">
+                    <div x-data="{ show: false }">
+                      <button @click="show = true" class="flex gap-2 items-center px-10 py-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                           <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                           <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                         </svg>
                         Accept
                       </button>
-                      <div class="border-[#cfcfcf] border-l-[1px]"></div>
-                      <button class="flex gap-2 items-center px-10 py-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
-                          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                        </svg>
-                        Reject
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              @endif
-              @if ($friend->status_friend == 'Incoming' && $friend->user_id == Auth::user()->id)
-                <form action="/status/accept" enctype="multipart/form-data" method="POST">
-                  <div class="bg-[#fcfcfc] w-[300px] rounded-md shadow-md">
-                    <div class="flex justify-between px-4 py-5">
-                      <div>
-                        <div class="flex gap-8 mb-2 items-center">
-                          <h3 class="text-[14px] capitalize">Rizki Ashari</h3>
-                          <p class="text-[#28a873] bg-[#45f5ac] text-[8px] rounded-[50px] flex px-1 py-0.5">12</p>
-                        </div>
-                        <h3 class="capitalize text-[#868585] text-[10px]">Member</h3>
+                      <div class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-[#000000] bg-opacity-25" x-show="show">
+                        <!-- Modal inner -->
+                          <div class="w-[350px] md:w-[400px] h-[140px] md:h-[150px] px-6 py-4 mx-auto text-left bg-[#fff] rounded shadow-lg" @click.away="show = false" x-transition:enter="motion-safe:ease-out duration-300" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
+                            <div class="flex">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                              </svg>
+                              <h5 class="ml-3 text-black capitalize max-w-none">Accepted Friend with {{ $friend->fullname }}</h5>
+                            </div>
+                            <!-- content -->
+                            <p class="text-[#666666] mt-3 px-4 md:px-8 text-[12px] md:text-[16px]">Are you sure you want to Accepted?</p>
+                              <div class="flex justify-end mb-4 items-center mt-4 gap-3">
+                                <button type="button" class="text-[#111111] border-[0.4px] border-[#424040] px-4 py-2 rounded-[8px] text-[12px] md:text-[16px] text-center" @click="show = false">Cancel</button>
+                                <form action="/user/friend/{{ $friend->idParent }}/accept" method="POST" enctype="multipart/form-data">
+                                  @csrf
+                                  <button type="submit" class="bg-[#13e200] text-[12px] md:text-[16px] text-[#fff] px-4 py-2 rounded-[8px] text-center">Accept</button>
+                                </form>
+                              </div>                       
+                          </div>
                       </div>
-                      <img src="https://media.istockphoto.com/photos/little-gamer-in-headset-near-compute-picture-id1342094843?b=1&k=20&m=1342094843&s=170667a&w=0&h=3uN5LbqY_2sJgcdn89JfoiN98k2p4cXy5k9R_zEplFA=" class="inline-block h-12 w-12 rounded-full object-cover"/>
                     </div>
-                    <div class="border-b-[1px] border-[#cfcfcf]"></div>
-                    <div class="flex justify-between">
-                      <button class="flex gap-2 items-center px-10 py-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                          <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                        </svg>
-                        Accept
-                      </button>
-                      <div class="border-[#cfcfcf] border-l-[1px]"></div>
-                      <button class="flex gap-2 items-center px-10 py-4">
+                    <div class="border-[#cfcfcf] border-l-[1px]"></div>
+                    <div x-data="{ show: false }">
+                      <button @click="show = true"  class="flex gap-2 items-center px-10 py-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
                           <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg>
                         Reject
                       </button>
+                      <div class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-[#000000] bg-opacity-25" x-show="show">
+                        <!-- Modal inner -->
+                          <div class="w-[350px] md:w-[400px] h-[140px] md:h-[150px] px-6 py-4 mx-auto text-left bg-[#fff] rounded shadow-lg" @click.away="show = false" x-transition:enter="motion-safe:ease-out duration-300" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
+                            <div class="flex">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                              </svg>
+                              <h5 class="ml-3 text-black capitalize max-w-none">Rejected Friend with {{ $friend->fullname }}</h5>
+                            </div>
+                            <!-- content -->
+                            <p class="text-[#666666] mt-3 px-4 md:px-8 text-[12px] md:text-[16px]">Are you sure you want to Reject?</p>
+                              <div class="flex justify-end mb-4 items-center mt-4 gap-3">
+                                <button type="button" class="text-[#111111] border-[0.4px] border-[#424040] px-4 py-2 rounded-[8px] text-[12px] md:text-[16px] text-center" @click="show = false">Cancel</button>
+                                <form action="/user/friend/{{ $friend->idParent }}/reject" method="POST" enctype="multipart/form-data">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="bg-[#f44336] text-[12px] md:text-[16px] text-[#fff] px-4 py-2 rounded-[8px] text-center">Reject</button>
+                                </form>
+                              </div>                       
+                          </div>
+                      </div>
                     </div>
                   </div>
-                </form>
-              @endif
-              @if($friend->status_user == 'Incoming' && $friend->user_id == Auth::user()->id)
-                <p class="text-[14px] text-[#b1b1b1]">There is no incoming friend request.</p>                
-              @endif
-              @if($friend->status_friend == 'Incoming' && $friend->friend_id == Auth::user()->id)
-                <p class="text-[14px] text-[#b1b1b1]">There is no incoming friend request.</p>                
+                </div>
               @endif
             @endforeach  
           @endif
         </div>
         <h3 class="md:text[16px] text-[14px] capitalize font-semibold mb-3">Pending Friend Requests</h3>
-        {{-- {{ dd($friends) }} --}}
         <div class="flex gap-4 flex-wrap mb-8">
-          @if (count($friends) == 0)
-            <p class="text-[14px] text-[#b1b1b1]">There is no incoming friend request.</p>  
+          @if (count($friendsPending) == 0)
+            <p class="text-[14px] text-[#b1b1b1]">There is no pending friend request.</p>  
           @else
-            @foreach ($friends as $friend)
-              @if ($friend->status_user == 'Pending' && $friend->friend_id == Auth::user()->id)
-                <form action="/status/accept" enctype="multipart/form-data" method="POST">
-                  <div class="bg-[#fcfcfc] w-[300px] rounded-md shadow-md">
-                    <div class="flex justify-between px-4 py-5">
-                      <div>
-                        <div class="flex gap-8 mb-2 items-center">
-                          <h3 class="text-[14px] capitalize">Rizki Ashari</h3>
-                          <p class="text-[#28a873] bg-[#45f5ac] text-[8px] rounded-[50px] flex px-1 py-0.5">12</p>
-                        </div>
-                        <h3 class="capitalize text-[#868585] text-[10px]">Member</h3>
+            @foreach ($friendsPending as $friend)
+              @if ($friend->status_friend == 'Pending')
+                <div class="bg-[#fcfcfc] w-[300px] rounded-md shadow-md">
+                  <div class="flex justify-between px-4 py-5">
+                    <div>
+                      <div class="flex gap-8 mb-2 items-center">
+                        <h3 class="text-[14px] capitalize">{{ $friend->fullname }}</h3>
+                        <p class="text-[#28a873] bg-[#45f5ac] text-[8px] rounded-[50px] flex px-1 py-0.5">{{ $friend->level }}</p>
                       </div>
-                      <img src="https://media.istockphoto.com/photos/little-gamer-in-headset-near-compute-picture-id1342094843?b=1&k=20&m=1342094843&s=170667a&w=0&h=3uN5LbqY_2sJgcdn89JfoiN98k2p4cXy5k9R_zEplFA=" class="inline-block h-12 w-12 rounded-full object-cover"/>
+                      <h3 class="capitalize text-[#868585] text-[10px]">{{ $friend->role }}</h3>
                     </div>
-                    <div class="border-b-[1px] border-[#cfcfcf]"></div>
-                    <div class="flex items-center">
-                      <button class="flex gap-2 items-center px-10 py-4">
+                    @if ($friend->profile == null)
+                      <div class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white">
+                        <p class="text-[#111827] text-center uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr($friend->fullname , 0, 1) }}</p>                       
+                      </div> 
+                    @else
+                      <img class="inline-block h-12 w-12 rounded-full object-cover" src="{{ '/profile/'. $friend->profile }}" alt="cover images">                         
+                    @endif
+                  </div>
+                  <div class="border-b-[1px] border-[#cfcfcf]"></div>
+                  <div class="flex justify-center items-center">
+                    <div x-data="{ show: false }">
+                      <button @click="show = true" class="flex gap-2 items-center px-10 py-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
                           <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg>
                         Cancel
                       </button>
-                    </div>
-                  </div>
-                </form>
-              @endif
-              @if ($friend->status_friend == 'Pending' && $friend->user_id == Auth::user()->id)
-                <form action="/status/accept" enctype="multipart/form-data" method="POST">
-                  <div class="bg-[#fcfcfc] w-[300px] rounded-md shadow-md">
-                    <div class="flex justify-between px-4 py-5">
-                      <div>
-                        <div class="flex gap-8 mb-2 items-center">
-                          <h3 class="text-[14px] capitalize">Rizki Ashari</h3>
-                          <p class="text-[#28a873] bg-[#45f5ac] text-[8px] rounded-[50px] flex px-1 py-0.5">12</p>
-                        </div>
-                        <h3 class="capitalize text-[#868585] text-[10px]">Member</h3>
+                      <div class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-[#000000] bg-opacity-25" x-show="show">
+                        <!-- Modal inner -->
+                          <div class="w-[350px] md:w-[400px] h-[140px] md:h-[150px] px-6 py-4 mx-auto text-left bg-[#fff] rounded shadow-lg" @click.away="show = false" x-transition:enter="motion-safe:ease-out duration-300" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
+                            <div class="flex">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                              </svg>
+                              <h5 class="ml-3 text-black capitalize max-w-none">Cancel Request Friend with {{ $friend->fullname }}</h5>
+                            </div>
+                            <!-- content -->
+                            <p class="text-[#666666] mt-3 px-4 md:px-8 text-[12px] md:text-[16px]">Are you sure you want to Canceled?</p>
+                              <div class="flex justify-end mb-4 items-center mt-4 gap-3">
+                                <button type="button" class="text-[#111111] border-[0.4px] border-[#424040] px-4 py-2 rounded-[8px] text-[12px] md:text-[16px] text-center" @click="show = false">Cancel</button>
+                                <form action="/user/friend/{{ $friend->idParent }}/cancel" method="POST" enctype="multipart/form-data">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="bg-[#f47c36] text-[12px] md:text-[16px] text-[#fff] px-4 py-2 rounded-[8px] text-center">Submit</button>
+                                </form>
+                              </div>                       
+                          </div>
                       </div>
-                      <img src="https://media.istockphoto.com/photos/little-gamer-in-headset-near-compute-picture-id1342094843?b=1&k=20&m=1342094843&s=170667a&w=0&h=3uN5LbqY_2sJgcdn89JfoiN98k2p4cXy5k9R_zEplFA=" class="inline-block h-12 w-12 rounded-full object-cover"/>
-                    </div>
-                    <div class="border-b-[1px] border-[#cfcfcf]"></div>
-                    <div class="flex justify-center item-center">
-                      <button class="flex gap-2 items-center px-10 py-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
-                          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                        </svg>
-                        Cancel
-                      </button>
                     </div>
                   </div>
-                </form>
-              @endif
-              @if($friend->status_user == 'Pending' && $friend->user_id == Auth::user()->id)
-                <p class="text-[14px] text-[#b1b1b1]">There is no incoming friend request.</p>                
-              @endif
-              @if($friend->status_friend == 'Pending' && $friend->friend_id == Auth::user()->id)
-                <p class="text-[14px] text-[#b1b1b1]">There is no incoming friend request.</p>                
+                </div>
               @endif    
             @endforeach
-          @endif
-            
+          @endif         
         </div>
         <h3 class="md:text[16px] text-[14px] capitalize font-semibold mb-3">Your Friend</h3>
         <div class="flex gap-4 flex-wrap mb-8">
-          <div class="bg-[#fcfcfc] w-[300px] h-[120px] rounded-md shadow-md">
-            <div class="flex justify-between px-4 py-5">
-              <div>
-                <div class="flex gap-8 mb-2 items-center">
-                  <h3 class="text-[14px] capitalize">Rizki Ashari</h3>
-                  <p class="text-[#28a873] bg-[#45f5ac] text-[8px] rounded-[50px] flex px-1 py-0.5">12</p>
-                </div>
-                <h3 class="capitalize text-[#868585] text-[10px]">Member</h3>
-              </div>
-              <img src="https://media.istockphoto.com/photos/little-gamer-in-headset-near-compute-picture-id1342094843?b=1&k=20&m=1342094843&s=170667a&w=0&h=3uN5LbqY_2sJgcdn89JfoiN98k2p4cXy5k9R_zEplFA=" class="inline-block h-12 w-12 rounded-full object-cover"/>
-            </div>
-          </div>
+          @if (count($friendsSuccess) == 0 && count($usersSuccess) == 0)
+            <p class="text-[14px] text-[#b1b1b1]">There is no friend.</p>
+          @else
+            @if (count($friendsSuccess) > 0)
+              @foreach ($friendsSuccess as $friend)
+                @if($friend->status_user == 'Success' && $friend->status_friend == 'Success')
+                  <div class="bg-[#fcfcfc] w-[300px] h-[120px] rounded-md shadow-md">
+                    <div class="flex justify-between px-4 py-5">
+                      <div>
+                        <div class="flex gap-8 mb-2 items-center">
+                          <h3 class="text-[14px] capitalize">{{ $friend->fullname }}</h3>
+                          <p class="text-[#28a873] bg-[#45f5ac] text-[8px] rounded-[50px] flex px-1 py-0.5">{{ $friend->level }}</p>
+                        </div>
+                        <h3 class="capitalize text-[#868585] text-[10px]">{{ $friend->role }}</h3>
+                      </div>
+                      @if ($friend->profile == null)
+                        <div class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white">
+                          <p class="text-[#111827] text-center uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr($friend->fullname , 0, 1) }}</p>                       
+                        </div> 
+                      @else
+                        <img class="inline-block h-12 w-12 rounded-full object-cover" src="{{ '/profile/'. $friend->profile }}" alt="cover images">                         
+                      @endif
+                    </div>
+                  </div>                  
+                @endif  
+              @endforeach
+            @endif
+            @if (count($usersSuccess) > 0)
+              @foreach ($usersSuccess as $user)
+                @if($user->status_user == 'Success' && $user->status_friend == 'Success')
+                  <div class="bg-[#fcfcfc] w-[300px] h-[120px] rounded-md shadow-md">
+                    <div class="flex justify-between px-4 py-5">
+                      <div>
+                        <div class="flex gap-8 mb-2 items-center">
+                          <h3 class="text-[14px] capitalize">{{ $user->fullname }}</h3>
+                          <p class="text-[#28a873] bg-[#45f5ac] text-[8px] rounded-[50px] flex px-1 py-0.5">{{ $user->level }}</p>
+                        </div>
+                        <h3 class="capitalize text-[#868585] text-[10px]">{{ $user->role }}</h3>
+                      </div>
+                      @if ($user->profile == null)
+                        <div class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white">
+                          <p class="text-[#111827] text-center uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr($user->fullname , 0, 1) }}</p>                       
+                        </div> 
+                      @else
+                        <img class="inline-block h-12 w-12 rounded-full object-cover" src="{{ '/profile/'. $user->profile }}" alt="cover images">                         
+                      @endif
+                    </div>
+                  </div>                  
+                @endif  
+              @endforeach
+                
+            @endif
+          @endif     
         </div>
       </div>    
     </div>

@@ -57,3 +57,6 @@ Route::post('/game/{game:slug}/update', [ManageGameController::class, 'update'])
 
 Route::get('/user/friend', [FriendController::class, 'index']);
 Route::post('/user/friend', [FriendController::class, 'addFriends']);
+Route::delete('/user/friend/{friend:id}/cancel', [FriendController::class, 'cancelStatus']);
+Route::delete('/user/friend/{friend:id}/reject', [FriendController::class, 'rejectStatus']);
+Route::post('/user/friend/{friend:id}/accept', [FriendController::class, 'acceptStatus']);

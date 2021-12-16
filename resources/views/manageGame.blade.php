@@ -146,7 +146,7 @@
                         </div>
                         <!-- content -->
                         <p class="text-[#666666] mt-3 px-4 md:px-8 text-[12px] md:text-[16px]">Are you sure you want to delete this game {{ $game->game_name }}? All of your data will be permanently removed from our servers forever. This action cannot be undone</p>
-                          <div class="flex justify-end mb-4 items-end mt-4 gap-3">
+                          <div class="flex justify-end mb-4 items-center mt-4 gap-3">
                             <button type="button" class="text-[#111111] border-[1px] border-[#424040] px-4 py-2 rounded-[8px] text-[12px] md:text-[16px] text-center" @click="show = false">Cancel</button>
                             <form action="/game/{{ $game->slug }}/delete" method="POST" enctype="multipart/form-data">
                               @csrf
