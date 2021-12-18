@@ -124,23 +124,38 @@ class GameController extends Controller
 
     public function detail(Game $game)
     {
-        $transaction = Transaction::join('transaction_details', 'transaction_details.transaction_id', 'transactions.id')->where('transaction_details.game_id', $game->id)->where('user_id', Auth::user()->id)->first();
-        // dd($transaction);
+        if (Auth::check()) {
+            $transaction = Transaction::join('transaction_details', 'transaction_details.transaction_id', 'transactions.id')->where('transaction_details.game_id', $game->id)->where('user_id', Auth::user()->id)->first();
+            // dd($transaction);
 
-        if ($game->is_adult == 0) {
-            return view('detailgame', [
-                'title' => $game->game_name,
-                'active' => 'detail',
-                'game' => $game,
-                // 'transactionDetail' => $transactionDetail,
-                'transaction' => $transaction
-            ]);
+            if ($game->is_adult == 0) {
+                return view('detailgame', [
+                    'title' => $game->game_name,
+                    'active' => 'detail',
+                    'game' => $game,
+                    'transaction' => $transaction
+                ]);
+            } else {
+                return view('checkage', [
+                    'title' => 'Check Age',
+                    'active' => 'checkage',
+                    'game' => $game
+                ]);
+            }
         } else {
-            return view('checkage', [
-                'title' => 'Check Age',
-                'active' => 'checkage',
-                'game' => $game
-            ]);
+            if ($game->is_adult == 0) {
+                return view('detailgame', [
+                    'title' => $game->game_name,
+                    'active' => 'detail',
+                    'game' => $game,
+                ]);
+            } else {
+                return view('checkage', [
+                    'title' => 'Check Age',
+                    'active' => 'checkage',
+                    'game' => $game
+                ]);
+            }
         }
     }
 
@@ -244,25 +259,29 @@ class GameController extends Controller
         $game = Game::findOrFail($id);
         $cart = Cookie::get('cart');
 
-        if (!$cart) {
-            $cart = json_decode($cart, true);
-            $cart[$id] = $game;
-
-            Cookie::queue('cart', json_encode($cart), 60);
-
-            return redirect('/')->with('success', 'Game success added to cart');
-        } else {
-            $cart = json_decode($cart, true);
-
-            if (array_key_exists($id, $cart)) {
-                return redirect('/')->with('error', 'This game already in your cart');
-            } else {
+        if (Auth::check()) {
+            if (!$cart) {
+                $cart = json_decode($cart, true);
                 $cart[$id] = $game;
 
                 Cookie::queue('cart', json_encode($cart), 60);
 
                 return redirect('/')->with('success', 'Game success added to cart');
+            } else {
+                $cart = json_decode($cart, true);
+
+                if (array_key_exists($id, $cart)) {
+                    return redirect('/')->with('error', 'This game already in your cart');
+                } else {
+                    $cart[$id] = $game;
+
+                    Cookie::queue('cart', json_encode($cart), 60);
+
+                    return redirect('/')->with('success', 'Game success added to cart');
+                }
             }
+        } else {
+            return redirect("/login")->with('error', 'You must login first');
         }
     }
 

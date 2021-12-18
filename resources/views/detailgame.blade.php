@@ -101,8 +101,29 @@
                 </div>
             </div>
         </div>
-        {{-- {{ dd($transaction) }} --}}
-        @if (Auth::user()->role_id == 2 && $transaction == null)
+        @if (Auth::check())
+            @if (Auth::user()->role_id == 2 && $transaction == null)
+                <div class="bg-[#fff] w-full mt-8 py-4 px-3 rounded-md">
+                    <h3 class="font-semibold">Buy {{ $game->game_name }}</h3>
+                    <div class="w-full relative top-[-2px] right-2">
+                        <div class="absolute right-0">
+                            <div class="bg-[#4B5563] items-center flex gap-2 px-4 py-2 rounded-md">
+                                <p class="text-[10px] sm:text-[12px] md:text-[14px] mr-2 text-[#f1f1f1]">
+                                    Rp.{{ number_format($game->price,  0, ".", ".") }}
+                                </p>
+                                <div class="border-l-2  border-[#fff] w-2 h-5"></div>
+                                <a href="/game/add-to-cart/{{ $game->id }}" class="text-[#f1f1f1] text-[10px] sm:text-[12px] md:text-[14px] flex items-center gap-2 uppercase">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="md:w-5 w-4 h-4 md:h-5" fill="#f1f1f1" viewBox="0 0 16 16">
+                                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                    </svg>
+                                    Add to cart
+                                </a>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            @endif
+        @else
             <div class="bg-[#fff] w-full mt-8 py-4 px-3 rounded-md">
                 <h3 class="font-semibold">Buy {{ $game->game_name }}</h3>
                 <div class="w-full relative top-[-2px] right-2">
@@ -123,6 +144,7 @@
                 </div>
             </div>
         @endif
+        
         <div class="mt-6">
             <h3 class="uppercase font-semibold mb-2 text-[14px] sm:[text-16px] md:text-[18px]">About This Game</h3>
             <div class="border-b-2 mb-2 w-full border-[#111544]"></div>

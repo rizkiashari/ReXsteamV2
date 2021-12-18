@@ -54,11 +54,11 @@ class FriendController extends Controller
         }
 
         if (Friend::where('user_id', Auth::user()->id)->where('friend_id', User::where('username', $request->username)->first()->id)->first()) {
-            return redirect()->back()->with('error', 'You already added this user as friend');
+            return redirect()->back()->with('error', 'Username is already on the friend request or friend list');
         }
 
         if (Friend::where('user_id', User::where('username', $request->username)->first()->id)->where('friend_id', Auth::user()->id)->first()) {
-            return redirect()->back()->with('error', 'This user already added you as friend');
+            return redirect()->back()->with('error', 'This username already added you as friend');
         }
 
         $friend = new Friend;
