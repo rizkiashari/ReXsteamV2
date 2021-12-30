@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return view('profile', [
-            'user' => auth()->user(),
-            'active' => 'profile',
-            'title' => 'Profile'
-        ]);
+        if (Auth::check()) {
+
+            return view('profile', [
+                'user' => auth()->user(),
+                'active' => 'profile',
+                'title' => 'Profile'
+            ]);
+        } else {
+            return redirect('/login')->with('error', 'Please login or Register');
+        }
     }
 
     public function changeProfile(Request $request)

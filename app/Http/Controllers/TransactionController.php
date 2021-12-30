@@ -19,19 +19,23 @@ class TransactionController extends Controller
 
     public function index()
     {
-        $transactions = Transaction::where('user_id', Auth::user()->id)->get();
+        if (Auth::check()) {
+            $transactions = Transaction::where('user_id', Auth::user()->id)->get();
 
-        $detailTransaction = [];
-        foreach ($transactions as $transaction) {
-            $detailTransaction[$transaction->id] = TransactionDetail::where('transaction_id', $transaction->id)->get();
+            $detailTransaction = [];
+            foreach ($transactions as $transaction) {
+                $detailTransaction[$transaction->id] = TransactionDetail::where('transaction_id', $transaction->id)->get();
+            }
+
+            return view('history', [
+                'title' => 'History',
+                'active' => 'history',
+                'transactions' => $transactions,
+                'transactionDetails' => $detailTransaction,
+            ]);
+        } else {
+            return redirect('/login')->with('error', 'Please login or Register');
         }
-
-        return view('history', [
-            'title' => 'History',
-            'active' => 'history',
-            'transactions' => $transactions,
-            'transactionDetails' => $detailTransaction,
-        ]);
     }
     public function idxTransaction()
     {
@@ -75,7 +79,7 @@ class TransactionController extends Controller
 
             $transaction = new Transaction();
             $user->level = $user->level + 1;
-            
+
             $transaction->user_id = Auth::user()->id;
             $transaction->uuid_transaction = Str::uuid()->toString();
             $transaction->card_name = $request->card_name;
@@ -85,7 +89,7 @@ class TransactionController extends Controller
             $transaction->cvc_cvv = $request->cvc_cvv;
             $transaction->card_country = $request->card_country;
             $transaction->postal_code = $request->postal_code;
-            
+
             foreach ($cart as $key => $value) {
                 $total += $value['price'];
             }
@@ -108,26 +112,28 @@ class TransactionController extends Controller
         } else {
             return redirect('/login')->with('error', 'Please login or Register');
         }
-
-        return redirect('/')->with('success', 'Transaction Success');
     }
     public function receiptTransaction($uuid)
     {
-        $transaction = Transaction::where('uuid_transaction', $uuid)->first();
-        $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
-        $total = 0;
-        foreach ($transactionDetails as $key => $value) {
-            $game = Game::find($value->game_id);
-            $transactionDetails[$key]->game = $game;
-            $total += $game->price;
+        if (Auth::check()) {
+            $transaction = Transaction::where('uuid_transaction', $uuid)->first();
+            $transactionDetails = TransactionDetail::where('transaction_id', $transaction->id)->get();
+            $total = 0;
+            foreach ($transactionDetails as $key => $value) {
+                $game = Game::find($value->game_id);
+                $transactionDetails[$key]->game = $game;
+                $total += $game->price;
+            }
+            $transaction->total = $total;
+            return view('receipt', [
+                'title' => 'Receipt',
+                'active' => 'receipt',
+                'transactions' => $transaction,
+                'transactionDetails' => $transactionDetails,
+                'total' => $total
+            ]);
+        } else {
+            return redirect('/login')->with('error', 'Please login or Register');
         }
-        $transaction->total = $total;
-        return view('receipt', [
-            'title' => 'Receipt',
-            'active' => 'receipt',
-            'transactions' => $transaction,
-            'transactionDetails' => $transactionDetails,
-            'total' => $total
-        ]);
     }
 }

@@ -17,7 +17,7 @@ class GameController extends Controller
     public function index()
     {
         $category = Category::all();
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->role_id == 1) {
 
             return view('addGame', [
                 'title' => 'Add Game',
@@ -25,7 +25,7 @@ class GameController extends Controller
                 'categories' => $category
             ]);
         } else {
-            return redirect('/login');
+            return redirect('/login')->with('error', 'Please login or Register');
         }
     }
 
@@ -281,33 +281,37 @@ class GameController extends Controller
                 }
             }
         } else {
-            return redirect("/login")->with('error', 'You must login first');
+            return redirect("/login")->with('error', 'Please login or Register');
         }
     }
 
     public function detailShoppingCart()
     {
-        $cart = Cookie::get('cart');
-        if (!$cart) {
-            return redirect()->back()->with('error', 'Your cart is empty');
-        } else {
-            $cart = json_decode($cart, true);
-            $game = Game::with('category')->whereIn('id', array_keys($cart))->get();
-            $total = 0;
+        if (Auth::check()) {
+            $cart = Cookie::get('cart');
+            if (!$cart) {
+                return redirect()->back()->with('error', 'Your cart is empty');
+            } else {
+                $cart = json_decode($cart, true);
+                $game = Game::with('category')->whereIn('id', array_keys($cart))->get();
+                $total = 0;
 
-            foreach ($cart as $key => $value) {
-                $total += $value['price'];
+                foreach ($cart as $key => $value) {
+                    $total += $value['price'];
+                }
+
+                // dd($cart);
+                // dd($total);
+
+                return view('shoppingcart', [
+                    'title' => 'Shopping Cart',
+                    'active' => 'shoppingcart',
+                    'games' => $game,
+                    'total' => $total
+                ]);
             }
-
-            // dd($cart);
-            // dd($total);
-
-            return view('shoppingcart', [
-                'title' => 'Shopping Cart',
-                'active' => 'shoppingcart',
-                'games' => $game,
-                'total' => $total
-            ]);
+        } else {
+            return redirect('/login')->with('error', 'Please login or Register');
         }
     }
 

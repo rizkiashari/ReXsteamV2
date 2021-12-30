@@ -11,36 +11,40 @@ class FriendController extends Controller
 {
     public function index()
     {
-        $friendsIncoming = Friend::where('friend_id', Auth::id())
-            ->where('status_user', 'Incoming')
-            ->join('users', 'users.id', '=', 'friends.user_id')->join('roles', 'roles.id', '=', 'users.role_id')
-            ->select('users.id', 'users.fullname', 'users.photo as profile', 'roles.name as role', 'friends.status_user', 'users.level', 'friends.id as idParent')->get();
+        if (Auth::check() && Auth::user()->role_id == 2) {
+            $friendsIncoming = Friend::where('friend_id', Auth::id())
+                ->where('status_user', 'Incoming')
+                ->join('users', 'users.id', '=', 'friends.user_id')->join('roles', 'roles.id', '=', 'users.role_id')
+                ->select('users.id', 'users.fullname', 'users.photo as profile', 'roles.name as role', 'friends.status_user', 'users.level', 'friends.id as idParent')->get();
 
-        $friendsPending = Friend::where('user_id', Auth::id())
-            ->where('status_friend', 'Pending')
-            ->join('users', 'users.id', '=', 'friends.friend_id')->join('roles', 'roles.id', '=', 'users.role_id')
-            ->select('users.id', 'users.fullname', 'users.photo as profile', 'roles.name as role', 'friends.status_friend', 'users.level', 'friends.id as idParent')->get();
+            $friendsPending = Friend::where('user_id', Auth::id())
+                ->where('status_friend', 'Pending')
+                ->join('users', 'users.id', '=', 'friends.friend_id')->join('roles', 'roles.id', '=', 'users.role_id')
+                ->select('users.id', 'users.fullname', 'users.photo as profile', 'roles.name as role', 'friends.status_friend', 'users.level', 'friends.id as idParent')->get();
 
-        $friendsSuccess = Friend::where('user_id', Auth::id())
-            ->where('status_friend', 'Success')
-            ->join('users', 'users.id', '=', 'friends.friend_id')->join('roles', 'roles.id', '=', 'users.role_id')
-            ->select('users.id', 'users.fullname', 'users.photo as profile', 'roles.name as role', 'friends.status_friend', 'status_user', 'users.level')->get();
-        $usersSuccess = Friend::where('friend_id', Auth::id())
-            ->where('status_user', 'Success')
-            ->join('users', 'users.id', '=', 'friends.user_id')->join('roles', 'roles.id', '=', 'users.role_id')
-            ->select('users.id', 'users.fullname', 'users.photo as profile', 'roles.name as role', 'friends.status_friend', 'status_user', 'users.level')->get();
-        // dd($usersSuccess);
+            $friendsSuccess = Friend::where('user_id', Auth::id())
+                ->where('status_friend', 'Success')
+                ->join('users', 'users.id', '=', 'friends.friend_id')->join('roles', 'roles.id', '=', 'users.role_id')
+                ->select('users.id', 'users.fullname', 'users.photo as profile', 'roles.name as role', 'friends.status_friend', 'status_user', 'users.level')->get();
+            $usersSuccess = Friend::where('friend_id', Auth::id())
+                ->where('status_user', 'Success')
+                ->join('users', 'users.id', '=', 'friends.user_id')->join('roles', 'roles.id', '=', 'users.role_id')
+                ->select('users.id', 'users.fullname', 'users.photo as profile', 'roles.name as role', 'friends.status_friend', 'status_user', 'users.level')->get();
+            // dd($usersSuccess);
 
-        // dd($friendsSuccess);
+            // dd($friendsSuccess);
 
-        return view('friend', [
-            'title' => 'Friend',
-            'active' => 'friend',
-            'friendsIncoming' => $friendsIncoming,
-            'friendsPending' => $friendsPending,
-            'friendsSuccess' => $friendsSuccess,
-            'usersSuccess' => $usersSuccess,
-        ]);
+            return view('friend', [
+                'title' => 'Friend',
+                'active' => 'friend',
+                'friendsIncoming' => $friendsIncoming,
+                'friendsPending' => $friendsPending,
+                'friendsSuccess' => $friendsSuccess,
+                'usersSuccess' => $usersSuccess,
+            ]);
+        } else {
+            return redirect('/login')->with('error', 'Please login or Register');
+        }
     }
 
     public function addFriends(Request $request)

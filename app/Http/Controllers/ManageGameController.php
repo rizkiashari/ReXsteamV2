@@ -13,13 +13,13 @@ class ManageGameController extends Controller
 {
     public function index(Request $request)
     {
-        if (Auth::check()) {
+        if (Auth::user()->role_id == 1 && Auth::check()) {
             $category = Category::all();
             $games01 = Game::join('categories', "categories.id", 'games.category_id')->paginate(8);
 
             if ($request->get('category')) {
                 $checked = $_GET['category'];
-                $games = Game::join('categories', "categories.id", 'games.category_id')->whereIn('category_id', $checked)->paginate(8);
+                $games = Game::join('categories', "categories.id", 'games.category_id')->where('category_id', $checked)->paginate(8);
             }
             if ($request->get('search')) {
                 $search = $request->get('search');
@@ -33,7 +33,7 @@ class ManageGameController extends Controller
                 'games' => $games ?? $games01,
             ]);
         } else {
-            return redirect('/login');
+            return redirect('/login')->with('error', 'Please login or Register');
         }
     }
 
@@ -45,14 +45,18 @@ class ManageGameController extends Controller
 
     public function edit(Game $game)
     {
-        $categories = Category::all();
+        if (Auth::check() && Auth::user()->role_id == 1) {
+            $categories = Category::all();
 
-        return view('editGame', [
-            'title' => 'Edit Game',
-            'active' => 'manageGame',
-            'game' => $game,
-            'categories' => $categories,
-        ]);
+            return view('editGame', [
+                'title' => 'Edit Game',
+                'active' => 'manageGame',
+                'game' => $game,
+                'categories' => $categories,
+            ]);
+        } else {
+            return redirect('/login')->with('error', 'Please login or Register');
+        }
     }
 
 
