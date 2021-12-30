@@ -34,9 +34,9 @@
       <h4 class="md:text-[16px] mb-1 text-[14px] font-medium">Transaction ID: {{ $transactions->uuid_transaction }}</h4>
       <h4 class="md:text-[16px] mb-4 text-[14px] font-medium">Purchased Date: {{ $transactions->created_at }}</h4>
       <div class="border-b-[1px] mb-4 border-[#dbdbdb]"></div>
-      @foreach ($transactionDetails as $transactionDetail)
+      @foreach ($transactionDetails as $transactionDetail)   
         <div class="flex flex-row gap-6 items-center">
-          <img src="/covers/{{ $transactionDetail->game->cover }}" class="w-[20em] h-[18em] object-cover rounded-md" />
+          <img src="<?php echo asset("storage/covers/". $transactionDetail->game->cover ) ?>" class="w-[20em] h-[18em] object-cover rounded-md" />
             <div>
               <h3 class="md:text-[18px] sm:text-[16px] text-[14px] font-bold">{{ $transactionDetail->game->game_name }}</h3>
               <div class="flex flex-row gap-3 mt-2">

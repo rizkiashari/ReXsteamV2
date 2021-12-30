@@ -90,13 +90,13 @@ class GameController extends Controller
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover');
             $coverName =  time() . "-" . $cover->getClientOriginalName();
-            $cover->move(public_path('covers'), $coverName);
+            $cover->storeAs('/public/covers', $coverName);
             $game->cover = $coverName;
         }
         if ($request->hasFile('trailer')) {
             $trailer = $request->file('trailer');
             $trailerName =  time() . '.' . $trailer->getClientOriginalExtension();
-            $trailer->move(public_path('videos/trailers'), $trailerName);
+            $trailer->storeAs('/public/trailers', $trailerName);
             $game->trailer = $trailerName;
         }
 
@@ -271,7 +271,7 @@ class GameController extends Controller
                 $cart = json_decode($cart, true);
 
                 if (array_key_exists($id, $cart)) {
-                    return redirect('/')->with('error', 'This game already in your cart');
+                    return back()->with('error', 'This game already in your cart');
                 } else {
                     $cart[$id] = $game;
 

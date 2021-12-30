@@ -67,10 +67,10 @@
     <div class="mt-4 w-full">
         <div class="flex w-full flex-col md:flex-row gap-6">
             <video class="md:w-[70%] w-full rounded-[8px]" controls>
-                <source src="{{'/videos/trailers/'. $game->trailer }}" type="video/webm">
+                <source src="<?php echo asset("storage/trailers/$game->trailer") ?>" type="video/webm">
             </video>
             <div class="md:w-[30%] w-full">
-                <img src="/covers/{{ $game->cover }}" class=" object-cover h-[200px] md:h-[280px] w-full md:w-[450px] sm:w-[300px] rounded-[8px]" />
+                <img src="<?php echo asset("storage/covers/$game->cover") ?>" class=" object-cover h-[200px] md:h-[280px] w-full md:w-[450px] sm:w-[300px] rounded-[8px]" />
                 <h3 class="mt-4 font-OpenSans font-bold text-[16px] md:text-[20px]">{{ $game->game_name }}</h3>
                 <p class="text-[14px] my-[4px] text-[#111544]">
                     {{ $game->description }}

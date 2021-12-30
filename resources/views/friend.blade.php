@@ -80,7 +80,7 @@
                         <p class="text-[#111827] text-center uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr($friend->fullname , 0, 1) }}</p>                       
                       </div>
                     @else
-                      <img class="inline-block h-12 w-12 rounded-full object-cover" src="{{ '/profile/'. $friend->profile }}" alt="img cover">                         
+                      <img class="inline-block h-12 w-12 rounded-full object-cover" src="<?php echo asset("storage/profile/$friend->profile") ?>" alt="img cover">                         
                     @endif
                   </div>
                   <div class="border-b-[1px] border-[#cfcfcf]"></div>
@@ -174,7 +174,7 @@
                         <p class="text-[#111827] text-center uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr($friend->fullname , 0, 1) }}</p>                       
                       </div> 
                     @else
-                      <img class="inline-block h-12 w-12 rounded-full object-cover" src="{{ '/profile/'. $friend->profile }}" alt="cover images">                         
+                      <img class="inline-block h-12 w-12 rounded-full object-cover" src="<?php echo asset("storage/profile/$friend->profile") ?>" alt="cover images">                         
                     @endif
                   </div>
                   <div class="border-b-[1px] border-[#cfcfcf]"></div>
@@ -238,7 +238,7 @@
                           <p class="text-[#111827] text-center uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr($friend->fullname , 0, 1) }}</p>                       
                         </div> 
                       @else
-                        <img class="inline-block h-12 w-12 rounded-full object-cover" src="{{ '/profile/'. $friend->profile }}" alt="cover images">                         
+                        <img class="inline-block h-12 w-12 rounded-full object-cover" src="<?php echo asset("storage/profile/$friend->profile") ?>" alt="cover images">                         
                       @endif
                     </div>
                   </div>                  
@@ -262,7 +262,7 @@
                           <p class="text-[#111827] text-center uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr($user->fullname , 0, 1) }}</p>                       
                         </div> 
                       @else
-                        <img class="inline-block h-12 w-12 rounded-full object-cover" src="{{ '/profile/'. $user->profile }}" alt="cover images">                         
+                        <img class="inline-block h-12 w-12 rounded-full object-cover" src="<?php echo asset("storage/profile/$user->profile") ?>" alt="cover images">                         
                       @endif
                     </div>
                   </div>                  

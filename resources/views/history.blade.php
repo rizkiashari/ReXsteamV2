@@ -61,7 +61,7 @@
                     <div class="flex flex-row flex-wrap gap-4">
                       @foreach ($txDetails as $txtDetail)
                         @if ($txtDetail->transaction_id == $transaction->id)
-                          <img src="/covers/{{ $txtDetail->game->cover }}" class="w-[320px] h-[200px] object-cover rounded-lg" />
+                          <img src="<?php echo asset("storage/covers/". $txtDetail->game->cover ) ?>" class="w-[320px] h-[200px] object-cover rounded-lg" />
                         @endif
                       @endforeach 
                     </div>

@@ -108,7 +108,7 @@
               <div class="cursor-pointer relative md:w-full w-[200px] h-auto">
                   <a class="hover:backdrop-blur-0" >
                       <div class="before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-[#ffffff69] before:rounded-[16px] ">
-                          <img class="rounded-[16px] w-full h-[200px] object-cover" src="{{ 'covers/'. $game->cover }}" />
+                          <img class="rounded-[16px] w-full h-[200px] object-cover" src="<?php echo asset("storage/covers/$game->cover") ?>" />
                           <div class="absolute bottom-5 left-3 px-3 rounded-[8px] md:max-w-xs py-2 bg-[#ffffff8e]">
                               <h3 class="font-bold mb- capitalize text-[14px]">{{ $str }}</h3>
                               <p class="font-normal capitalize text-[12px]">{{ $game->category->name }}</p>

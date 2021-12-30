@@ -93,7 +93,7 @@
                 <div x-data='imagePreview()'>
                   <label for="photo" class="cursor-pointer">
                     <template x-if="!imageUrl">
-                      <img class="inline-block h-[100px] w-[100px] md:h-[150px] md:w-[150px] object-cover rounded-full ring-2 ring-white" src="{{ '/profile/'. $user->photo }}" alt="">
+                      <img class="inline-block h-[100px] w-[100px] md:h-[150px] md:w-[150px] object-cover rounded-full ring-2 ring-white" src="<?php echo asset("storage/profile/$user->photo") ?>" alt="">
                     </template>
                     <template x-if="imageUrl">
                       <img :src="imageUrl" class="inline-block h-[100px] w-[100px] object-cover md:h-[150px] md:w-[150px] rounded-full ring-2 ring-white" />

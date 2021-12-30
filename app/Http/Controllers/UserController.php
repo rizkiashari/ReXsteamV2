@@ -57,7 +57,7 @@ class UserController extends Controller
             ]);
 
             $imageName = time() . '.' . $request->photo->extension();
-            $request->photo->move(public_path('profile'), $imageName);
+            $request->file('photo')->storeAs('/public/profile', $imageName);
 
             User::find(auth()->user()->id)->update([
                 'fullname' => $request->fullname,

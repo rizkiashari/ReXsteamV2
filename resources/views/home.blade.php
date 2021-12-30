@@ -33,7 +33,7 @@
             <div class="relative md:w-[22%] w-[200px] h-1/3">
                 <a class="hover:backdrop-blur-0" href="/game/{{ $game->slug }}">
                     <div class="before:absolute before:top-0 before:bottom-0 before:right-0 before:left-0 before:bg-[#ffffff69] before:rounded-[16px] ">
-                        <img class="rounded-[16px] w-full h-[200px] object-cover" src="{{ 'covers/'. $game->cover }}" alt="cover game" />
+                        <img class="rounded-[16px] w-full h-[200px] object-cover" src="<?php echo asset("storage/covers/$game->cover") ?>" alt="cover game" />
                         <div class="absolute bottom-5 left-3 px-3 rounded-[8px] md:max-w-xs py-2 bg-[#ffffff8e]">
                             <h3 class="font-bold mb-1 capitalize text-[14px]">{{ $game->game_name }}</h3>
                             <p class="font-normal capitalize text-[12px]">{{ $game->category->name }}</p>

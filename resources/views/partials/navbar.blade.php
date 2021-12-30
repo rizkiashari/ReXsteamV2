@@ -64,7 +64,7 @@
                   <p class="text-[#fff] uppercase mt-1 font-medium font-Oswald text-[20px]" >{{ substr(Auth::user()->fullname , 0, 1) }}</p>              
                 </div>
               @else
-                <img class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white" src="{{ asset('profile/'.Auth::user()->photo) }}" alt="profile user">              
+                <img class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white" src="{{url('storage/profile/'.Auth::user()->photo)}}" alt="profile user">              
               @endif
             @else
               @if (Auth::user()->photo == null)
@@ -72,7 +72,7 @@
                   <p class="text-[#fff] mt-1 uppercase font-medium font-Oswald text-[20px]" >{{ substr(Auth::user()->fullname , 0, 1) }}</p>              
                 </div>
               @else
-                <img class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white" src="{{ asset('profile/'.Auth::user()->photo) }}" alt="profile user">                
+                <img class="inline-block h-10 w-10 md:ml-4 ml-4 md:my-0 my-4 rounded-full ring-2 ring-white" src="{{url('storage/profile/'.Auth::user()->photo)}}" alt="profile user">                
               @endif                           
             @endif
           </button>

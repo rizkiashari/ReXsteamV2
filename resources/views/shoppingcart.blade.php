@@ -25,7 +25,7 @@
                 @foreach ($games as $game)
                 <div class="flex justify-between mb-4 border-b-2 md:flex-row flex-col items-start sm:items-center border-[#f3f3f3] md:items-center">
                     <div class="flex md:flex-row flex-col items-start md:items-center mb-4 gap-6">
-                        <img src="/covers/{{ $game->cover }}" alt="cover img" class="md:w-[20em] w-full rounded-[4px]" />
+                        <img src="<?php echo asset("storage/covers/$game->cover") ?>" alt="cover img" class="md:w-[20em] w-full rounded-[4px]" />
                         <div class="flex flex-col">
                             <div class="flex items-center mb-3 gap-3">
                                 <h3 class="font-semibold sm:text-[18px] text-[14px] md:text-[24px]">{{ $game->game_name }}</h3>
