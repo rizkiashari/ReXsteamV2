@@ -96,10 +96,9 @@
           </template>
           <template x-if="videoUrl">
             {{-- video src --}}
-            <video  class="object-cover w-auto h-40" >
-              <source :src="videoUrl">
-              </video>
-              
+              <video  class="object-cover w-auto h-40" >
+                <source :src="videoUrl">
+              </video> 
             </template>
             <input type="file" accept="video/webm" @change="fileChosen" id="trailer" name="trailer" class="hidden" />
           </label>
