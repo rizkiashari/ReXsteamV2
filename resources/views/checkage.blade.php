@@ -16,7 +16,7 @@
         </div> 
         @endif
         <div class="border-2 w-full h-full border-[#111854]">
-            <img src="/covers/{{ $game->cover }}" class="absolute object-cover md:w-[240px] w-[200px] h-[110px] md:h-[150px] left-[50%] top-[6.8em] translate-x-[-50%]" alt="{{ $game->game_name }}" />
+            <img src="<?php echo asset("storage/covers/$game->cover") ?>"  class="absolute object-cover md:w-[240px] w-[200px] h-[110px] md:h-[150px] left-[50%] top-[6.8em] translate-x-[-50%]" alt="{{ $game->game_name }}" />
             <form action="/game/{{ $game->slug }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex flex-col justify-center items-center md:px-0 px-4">

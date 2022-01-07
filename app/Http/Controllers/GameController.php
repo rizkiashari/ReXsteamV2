@@ -184,7 +184,7 @@ class GameController extends Controller
                         'transaction' => $transaction
                     ]);
                 } else {
-                    return redirect('/')->with('error', 'You must be at least 17 years old to play this game');
+                    return back()->with('error', 'You must be at least 17 years old to play this game');
                 }
             } else if ($day == 29 && $year % 4 != 0) {
                 return back()->with('error', 'Invalid date');
@@ -204,7 +204,7 @@ class GameController extends Controller
                         'transaction' => $transaction
                     ]);
                 } else {
-                    return redirect('/')->with('error', 'You must be at least 17 years old to play this game');
+                    return back()->with('error', 'You must be at least 17 years old to play this game');
                 }
             }
         }
@@ -290,7 +290,12 @@ class GameController extends Controller
         if (Auth::check()) {
             $cart = Cookie::get('cart');
             if (!$cart) {
-                return redirect()->back()->with('error', 'Your cart is empty');
+                $game = [];
+                return view('shoppingcart', [
+                    'title' => 'Shopping Cart',
+                    'active' => 'shoppingcart',
+                    'games' => $game,
+                ]);
             } else {
                 $cart = json_decode($cart, true);
                 $game = Game::with('category')->whereIn('id', array_keys($cart))->get();
@@ -299,9 +304,6 @@ class GameController extends Controller
                 foreach ($cart as $key => $value) {
                     $total += $value['price'];
                 }
-
-                // dd($cart);
-                // dd($total);
 
                 return view('shoppingcart', [
                     'title' => 'Shopping Cart',

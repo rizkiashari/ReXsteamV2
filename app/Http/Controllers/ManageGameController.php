@@ -13,25 +13,27 @@ class ManageGameController extends Controller
 {
     public function index(Request $request)
     {
-        if (Auth::user()->role_id == 1 && Auth::check()) {
-            $category = Category::all();
-            $games01 = Game::join('categories', "categories.id", 'games.category_id')->paginate(8);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                $category = Category::all();
+                $games01 = Game::join('categories', "categories.id", 'games.category_id')->paginate(8);
 
-            if ($request->get('category')) {
-                $checked = $_GET['category'];
-                $games = Game::join('categories', "categories.id", 'games.category_id')->where('category_id', $checked)->paginate(8);
-            }
-            if ($request->get('search')) {
-                $search = $request->get('search');
-                $games = Game::join('categories', "categories.id", 'games.category_id')->where('game_name', 'like', '%' . $search . '%')->paginate(8);
-            }
+                if ($request->get('category')) {
+                    $checked = $_GET['category'];
+                    $games = Game::join('categories', "categories.id", 'games.category_id')->where('category_id', $checked)->paginate(8);
+                }
+                if ($request->get('search')) {
+                    $search = $request->get('search');
+                    $games = Game::join('categories', "categories.id", 'games.category_id')->where('game_name', 'like', '%' . $search . '%')->paginate(8);
+                }
 
-            return view('manageGame', [
-                'title' => 'Manage Game',
-                'active' => 'manageGame',
-                'categories' => $category,
-                'games' => $games ?? $games01,
-            ]);
+                return view('manageGame', [
+                    'title' => 'Manage Game',
+                    'active' => 'manageGame',
+                    'categories' => $category,
+                    'games' => $games ?? $games01,
+                ]);
+            }
         } else {
             return redirect('/login')->with('error', 'Please login or Register');
         }
