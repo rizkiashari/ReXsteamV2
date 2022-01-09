@@ -25,7 +25,7 @@ class PriceRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $value >= 0 && $value <= 1000000;
+        return $value >= 1 && $value <= 1000000;
     }
 
     /**

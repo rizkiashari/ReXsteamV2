@@ -50,48 +50,6 @@
     @endauth
   </div>
   @include('partials.footer')
-
-  <script>
-    const imagePreview = () => {
-      return {
-        imageUrl: '',
-
-        fileChosen(event) {
-          this.fileToDataUrl(event, src => this.imageUrl = src)
-        },
-
-        fileToDataUrl(event, callback) {
-          if (!event.target.files.length) return
-
-          let file = event.target.files[0],
-              reader = new FileReader()
-
-          reader.readAsDataURL(file)
-          reader.onload = e => callback(e.target.result)
-        },
-      }
-    }
-
-    const videoPreview = () => {
-      return {
-        videoUrl: '',
-
-        fileChosen(event) {
-          this.fileToDataUrl(event, src => this.videoUrl = src)
-        },
-
-
-        fileToDataUrl(event, callback) {
-          if (!event.target.files.length) return
-
-          let file = event.target.files[0],
-              reader = new FileReader()
-
-          reader.readAsDataURL(file)
-          reader.onload = e => callback(e.target.result)
-        },
-      }
-    }
-  </script>
+  
 </body>
 </html>

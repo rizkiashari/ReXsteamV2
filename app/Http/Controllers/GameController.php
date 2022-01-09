@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Game;
-use App\Models\TransactionDetail;
 use App\Models\Transaction;
 use App\Rules\PriceRule;
 use Illuminate\Http\Request;
@@ -102,7 +101,7 @@ class GameController extends Controller
 
         $game->save();
 
-        return redirect('/')->with('success', 'Game added successfully');
+        return redirect('/manage-game')->with('success', 'Game added successfully');
     }
 
     public function search(Request $request)
@@ -161,96 +160,106 @@ class GameController extends Controller
 
     public function checkAge(Request $request, Game $game)
     {
-        $day = (int) $request->day;
-        $month = (int) $request->month;
-        $year = (int) $request->year;
-        $transaction = Transaction::join('transaction_details', 'transaction_details.transaction_id', 'transactions.id')->where('transaction_details.game_id', $game->id)->where('user_id', Auth::user()->id)->first();
+        if (Auth::check()) {
+            $day = (int) $request->day;
+            $month = (int) $request->month;
+            $year = (int) $request->year;
+            $transaction = Transaction::join('transaction_details', 'transaction_details.transaction_id', 'transactions.id')->where('transaction_details.game_id', $game->id)->where('user_id', Auth::user()->id)->first();
 
-        // Validasi Bulan Februari
-        if ($month == 2) {
-            if ($day == 29 && $year % 4 == 0) {
-                $birthDate = $request->day . '-' . $request->month . '-' . $request->year;
-                $currentDate = date("d-m-Y");
-                $ageDiff = date_diff(date_create($birthDate), date_create($currentDate));
+            // Validasi Bulan Februari
+            if ($month == 2) {
+                if ($day == 29 && $year % 4 == 0) {
+                    $birthDate = $request->day . '-' . $request->month . '-' . $request->year;
+                    $currentDate = date("d-m-Y");
+                    $ageDiff = date_diff(date_create($birthDate), date_create($currentDate));
 
-                $age = $ageDiff->format('%y');
-                $ageConvert = (int) $age;
+                    $age = $ageDiff->format('%y');
+                    $ageConvert = (int) $age;
 
-                if ($ageConvert >= 17) {
-                    return view('detailgame', [
-                        'title' => $game->game_name,
-                        'active' => 'detail',
-                        'game' => $game,
-                        'transaction' => $transaction
-                    ]);
+                    if ($ageConvert >= 17) {
+                        return view('detailgame', [
+                            'title' => $game->game_name,
+                            'active' => 'detail',
+                            'game' => $game,
+                            'transaction' => $transaction
+                        ]);
+                    } else {
+                        return back()->with('error', 'You must be at least 17 years old to play this game');
+                    }
+                } else if ($day == 29 && $year % 4 != 0) {
+                    return back()->with('error', 'Invalid date');
                 } else {
-                    return back()->with('error', 'You must be at least 17 years old to play this game');
-                }
-            } else if ($day == 29 && $year % 4 != 0) {
-                return back()->with('error', 'Invalid date');
-            } else {
-                $birthDate = $request->day . '-' . $request->month . '-' . $request->year;
-                $currentDate = date("d-m-Y");
-                $ageDiff = date_diff(date_create($birthDate), date_create($currentDate));
+                    $birthDate = $request->day . '-' . $request->month . '-' . $request->year;
+                    $currentDate = date("d-m-Y");
+                    $ageDiff = date_diff(date_create($birthDate), date_create($currentDate));
 
-                $age = $ageDiff->format('%y');
-                $ageConvert = (int) $age;
+                    $age = $ageDiff->format('%y');
+                    $ageConvert = (int) $age;
 
-                if ($ageConvert >= 17) {
-                    return view('detailgame', [
-                        'title' => $game->game_name,
-                        'active' => 'detail',
-                        'game' => $game,
-                        'transaction' => $transaction
-                    ]);
-                } else {
-                    return back()->with('error', 'You must be at least 17 years old to play this game');
-                }
-            }
-        }
-
-        // Validasi Bulan April, Juni, September, November
-        if ($month == 4 || $month == 6 || $month == 9 || $month == 11) {
-            if ($day == 31) {
-                return back()->with('error', 'Invalid date');
-            } else {
-                $birthDate = $request->day . '-' . $request->month . '-' . $request->year;
-                $currentDate = date("d-m-Y");
-                $ageDiff = date_diff(date_create($birthDate), date_create($currentDate));
-
-                $age = $ageDiff->format('%y');
-                $ageConvert = (int) $age;
-
-                if ($ageConvert >= 17) {
-                    return view('detailgame', [
-                        'title' => $game->game_name,
-                        'active' => 'detail',
-                        'game' => $game,
-                        'transaction' => $transaction
-                    ]);
-                } else {
-                    return redirect('/')->with('error', 'You must be at least 17 years old to play this game');
+                    if ($ageConvert >= 17) {
+                        return view('detailgame', [
+                            'title' => $game->game_name,
+                            'active' => 'detail',
+                            'game' => $game,
+                            'transaction' => $transaction
+                        ]);
+                    } else {
+                        return back()->with('error', 'You must be at least 17 years old to play this game');
+                    }
                 }
             }
-        }
 
-        // Validasi Selain bulan Februari dan April, Juni, September, November
-        $birthDate = $request->day . '-' . $request->month . '-' . $request->year;
-        $currentDate = date("d-m-Y");
-        $ageDiff = date_diff(date_create($birthDate), date_create($currentDate));
+            // Validasi Bulan April, Juni, September, November
+            if ($month == 4 || $month == 6 || $month == 9 || $month == 11) {
+                if ($day == 31) {
+                    return back()->with('error', 'Invalid date');
+                } else {
+                    $birthDate = $request->day . '-' . $request->month . '-' . $request->year;
+                    $currentDate = date("d-m-Y");
+                    $ageDiff = date_diff(date_create($birthDate), date_create($currentDate));
 
-        $age = $ageDiff->format('%y');
-        $ageConvert = (int) $age;
+                    $age = $ageDiff->format('%y');
+                    $ageConvert = (int) $age;
 
-        if ($ageConvert >= 17) {
+                    if ($ageConvert >= 17) {
+                        return view('detailgame', [
+                            'title' => $game->game_name,
+                            'active' => 'detail',
+                            'game' => $game,
+                            'transaction' => $transaction
+                        ]);
+                    } else {
+                        return back()->with('error', 'You must be at least 17 years old to play this game');
+                    }
+                }
+            }
+
+            // Validasi Selain bulan Februari dan April, Juni, September, November
+            $birthDate = $request->day . '-' . $request->month . '-' . $request->year;
+            $currentDate = date("d-m-Y");
+            $ageDiff = date_diff(date_create($birthDate), date_create($currentDate));
+
+            $age = $ageDiff->format('%y');
+            $ageConvert = (int) $age;
+
+            if ($ageConvert >= 17) {
+                return view('detailgame', [
+                    'title' => $game->game_name,
+                    'active' => 'detail',
+                    'game' => $game,
+                    'transaction' => $transaction
+                ]);
+            } else {
+                return back()->with('error', 'You must be at least 17 years old to play this game');
+            }
+        } else {
+            $transaction = [];
             return view('detailgame', [
                 'title' => $game->game_name,
                 'active' => 'detail',
                 'game' => $game,
                 'transaction' => $transaction
             ]);
-        } else {
-            return redirect('/')->with('error', 'You must be at least 17 years old to play this game');
         }
     }
 

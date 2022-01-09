@@ -72,38 +72,61 @@
       </div>
       <div class="mb-4 text-[#111827]">
         <label class="capitalize text-[14px]">Game Cover</label>
-        <label x-data='imagePreview()' class="w-full flex flex-col py-10 items-center bg-white border-dashed border-[#fff] rounded-md tracking-wide uppercase border-2 mt-1 border-blue cursor-pointer ease-linear transition-all duration-150">
-          <template x-if="!imageUrl">
-            <span class="flex flex-col items-center">
-              <img src="/img/icon_cover.png" alt="icon cover" />
-              <h2 class="text-center capitalize text-[12px] md:[16px] text-[#6d6d6d]" >Drag and drop your file or click in this area.</h2>
-              <p class="text-center capitalize text-[12px] md:[16px] text-[#9b9b9b]">JPG up to 100KB.</p>
-            </span>
-          </template>
-          <template x-if="imageUrl">
-            <img :src="imageUrl" alt="icon cover" class="object-cover w-auto h-40" />
-          </template>
-          <input type="file" accept="image/jpg" @change="fileChosen" name="cover" class="hidden" />
-        </label>
+        <div class="flex flex-col py-6 items-center bg-white border-dashed border-[#fff] rounded-md tracking-wide uppercase border-2 mt-1 border-blue ease-linear transition-all duration-150">
+          <div x-data="{ images: null }" class="block w-full py-2 px-3 relative">
+            <input type="file" accept="image/jpg" name="cover" class="absolute cursor-pointer  inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0" x-on:change="images = $event.target.files;" x-on:dragover="$el.classList.add('active')" x-on:dragleave="$el.classList.remove('active')" x-on:drop="$el.classList.remove('active')">
+            <template x-if="images !== null">
+              <div class="flex flex-col items-center justify-center space-y-1">
+                <template x-for="(_,index) in Array.from({ length: images.length })">
+                    <div class="flex flex-row items-center space-x-2">
+                      <template class="flex items-center" x-if="images[index].type.includes('image/')">               
+                        <img class="flex items-center object-cover w-auto h-40" :src="URL.createObjectURL(images[index])" alt="">
+                      </template>
+                    </div>
+                </template>
+              </div>
+            </template>
+            <template x-if="images === null">
+                <div class="flex flex-col space-y-2 items-center justify-center">
+                  <a href="javascript:void(0)" class="flex flex-col space-y-2 items-center justify-center">
+                    <img src="/img/icon_cover.png" alt="icon cover" />
+                    <h2 class="text-center capitalize text-[12px] md:[16px] text-[#6d6d6d]" >Drag and drop your file or click in this area.</h2>
+                    <p class="text-center capitalize text-[12px] md:[16px] text-[#9b9b9b]">JPG up to 100KB.</p>
+                  </a>
+                </div>
+            </template>
+          </div>
+        </div>
       </div>
       <div class="mb-4 text-[#111827]">
         <label class="capitalize text-[14px]">Game Trailer</label>
-        <label x-data='videoPreview()' class="w-full flex flex-col py-10 items-center bg-white border-dashed border-[#fff] rounded-md tracking-wide uppercase border-2 mt-1 border-blue cursor-pointer ease-linear transition-all duration-150">
-          <template x-if="!videoUrl">
-            <span class="flex flex-col items-center" for="trailer">
-              <img src="/img/icon_trailer.png"/>
-              <h2 class="text-center capitalize text-[12px] md:[16px] text-[#6d6d6d]" >Drag and drop your file or click in this area.</h2>
-              <p class="text-center capitalize text-[12px] md:[16px] text-[#9b9b9b]">WEBM up to 100MB.</p>
-            </span>
-          </template>
-          <template x-if="videoUrl">
-            {{-- video src --}}
-            <video  class="object-cover w-auto h-40" >
-              <source :src="videoUrl">
-              </video>  
+        <div class="flex flex-col py-6 items-center bg-white border-dashed border-[#fff] rounded-md tracking-wide uppercase border-2 mt-1 border-blue ease-linear transition-all duration-150">
+          <div x-data="{ videos: null }" class="block w-full py-2 px-3 relative">
+            <input type="file" accept="video/webm" id="trailer" name="trailer" class="absolute cursor-pointer inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0" x-on:change="videos = $event.target.files;" x-on:dragover="$el.classList.add('active')" x-on:dragleave="$el.classList.remove('active')" x-on:drop="$el.classList.remove('active')">
+            <template x-if="videos !== null">
+              <div class="flex flex-col items-center justify-center space-y-1">
+                <template x-for="(_,index) in Array.from({ length: videos.length })">
+                    <div class="flex flex-row items-center space-x-2">
+                      <template class="flex items-center" x-if="videos[index].type.includes('video/')">
+                        <video  class="object-cover w-auto h-40" >
+                          <source :src="URL.createObjectURL(videos[index])">
+                        </video>
+                      </template>
+                    </div>
+                </template>
+              </div>
             </template>
-            <input type="file" accept="video/webm" @change="fileChosen" id="trailer" name="trailer" class="hidden" />
-          </label>
+            <template x-if="videos === null">
+                <div class="flex flex-col space-y-2 items-center justify-center">
+                  <a href="javascript:void(0)" class="flex flex-col space-y-2 items-center justify-center">
+                    <img src="/img/icon_trailer.png"/>
+                    <h2 class="text-center capitalize text-[12px] md:[16px] text-[#6d6d6d]">Drag and drop your file or click in this area.</h2>
+                    <p class="text-center capitalize text-[12px] md:[16px] text-[#9b9b9b]">WEBM up to 100MB.</p>
+                  </a>
+                </div>
+            </template>
+          </div>
+        </div>
         </div>
         <div class="border-b-2 my-5 border-[#ffff]"></div>
         <div class="flex justify-end mt-2 gap-3 items-center">
