@@ -19,8 +19,6 @@
       margin: 0;
     }
     input[type="date"]::-webkit-calendar-picker-indicator {
-      //display: none;
-      //-webkit-appearance: none;
       width: 20px;
       padding: 5px 10px;
     }
@@ -52,25 +50,28 @@
   @include('partials.footer')
   <script>
 
-     function imagePreview(){
+    const imagePreview = () => {
+      let file;
+      let reader;
       return {
-        imageUrl: '',
+        imgSrc: '',
 
-        fileChosen(e) {
-          this.fileToDataUrl(e, src => this.imageUrl = src)
+        fileURL(e, call) {
+          if (!e.target.files.length) {
+            return
+          } 
+          else { 
+            file = e.target.files[0], readURL = new FileReader();
+            readURL.readAsDataURL(file)
+            readURL.onload = e => call(e.target.result)
+          }
         },
 
-        fileToDataUrl(e, callback) {
-          if (!e.target.files.length) return
-
-          let file = e.target.files[0],
-              reader = new FileReader()
-
-          reader.readAsDataURL(file)
-          reader.onload = e => callback(e.target.result)
+        change(e) {
+          this.fileURL(e, src => this.imgSrc = src)
         },
       }
-     }
+    }
 
   </script>
 </body>
